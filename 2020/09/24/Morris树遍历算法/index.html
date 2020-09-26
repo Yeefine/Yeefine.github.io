@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="Yeefine">
   <meta name="keywords" content="">
-  <title>ArrayList集合 - Yeefine&#39;s Blog</title>
+  <title>Morris树遍历算法 - Yeefine&#39;s Blog</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 
@@ -160,8 +160,8 @@
               
   <div class="mt-3 post-meta">
     <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-    <time datetime="2020-08-12 23:24" pubdate>
-      2020年8月12日 晚上
+    <time datetime="2020-09-24 17:22" pubdate>
+      2020年9月24日 下午
     </time>
   </div>
 
@@ -171,7 +171,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      614 字
+      721 字
     </span>
   
 
@@ -211,114 +211,52 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto" id="post">
             <!-- SEO header -->
-            <h1 style="display: none">ArrayList集合</h1>
+            <h1 style="display: none">Morris树遍历算法</h1>
             
             <div class="markdown-body" id="post-body">
-              <h3 id="ArrayList当中的常用方法有："><a href="#ArrayList当中的常用方法有：" class="headerlink" title="ArrayList当中的常用方法有："></a>ArrayList当中的常用方法有：</h3><ul>
-<li><code>public boolean add(E e)</code>：向集合当中添加元素，参数的类型和泛型一致。返回值代表添加是否成功。  </li>
-</ul>
-<p><strong>备注：</strong>对于<em>ArrayList</em>集合来说，<em>add</em>添加动作一定是成功的，所以返回值可用可不用。 （但对于其他集合来说，<em>add</em>添加动作不一定成功）。  </p>
+              <p>本文主要解决一个问题，如何实现二叉树的前中后序遍历，并满足以下要求：</p>
 <ul>
-<li><code>public E get(int index)</code>：从集合当中获取元素，参数是索引编号（从0开始），返回值就是对应位置的元素。  </li>
-<li><code>public E remove(int index)</code>：从集合当中删除元素，参数是索引编号（从0开始），返回值就是被删除的元素。</li>
-<li><code>public int size()</code>：获取集合的尺寸长度，返回值是集合中包含的元素个数。  </li>
+<li>空间复杂度为O(1)；</li>
+<li>二叉树的形状不能被破坏（中间过程允许改变其形状）。</li>
 </ul>
-<h4 id="代码示例"><a href="#代码示例" class="headerlink" title="代码示例"></a>代码示例</h4><pre><code class="hljs java"><span class="hljs-keyword">import</span> java.util.ArrayList;
-
-<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Demo03ArrayListMethod</span> </span>&#123;
-    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;
-        ArrayList&lt;String&gt; list = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();
-        System.out.println(list);   <span class="hljs-comment">// []</span>
-
-        <span class="hljs-comment">// 向集合中添加元素: add</span>
-        <span class="hljs-keyword">boolean</span> success = list.add(<span class="hljs-string">&quot;aaa&quot;</span>);
-        System.out.println(list);   <span class="hljs-comment">// [aaa]</span>
-        System.out.println(<span class="hljs-string">&quot;添加的动作是否成功： &quot;</span> + success);    <span class="hljs-comment">// true</span>
-
-        list.add(<span class="hljs-string">&quot;bbb&quot;</span>);
-        list.add(<span class="hljs-string">&quot;ccc&quot;</span>);
-        list.add(<span class="hljs-string">&quot;ddd&quot;</span>);
-        list.add(<span class="hljs-string">&quot;eee&quot;</span>);
-        System.out.println(list);   <span class="hljs-comment">// [aaa, bbb, ccc, ddd, eee]</span>
-
-        <span class="hljs-comment">// 从集合中获取元素： get。 索引值从0开始</span>
-        String name = list.get(<span class="hljs-number">2</span>);
-        System.out.println(<span class="hljs-string">&quot;第2号索引位置： &quot;</span> + name);  <span class="hljs-comment">// ccc</span>
-
-        <span class="hljs-comment">// 从集合中删除元素： remove。 索引值从0开始</span>
-        String whoRemoved = list.remove(<span class="hljs-number">3</span>);
-        System.out.println(<span class="hljs-string">&quot;被删除的人是： &quot;</span> + whoRemoved);    <span class="hljs-comment">// ddd</span>
-        System.out.println(list);   <span class="hljs-comment">// [aaa, bbb, ccc, eee]</span>
-
-        <span class="hljs-comment">// 获取集合的长度尺寸，也就是其中元素的个数</span>
-        <span class="hljs-keyword">int</span> size = list.size();
-        System.out.println(<span class="hljs-string">&quot;集合的长度是： &quot;</span> + size);
+<p>通常情况下，我们使用递归和迭代的方式进行遍历。但是由于这两种方式会用到递归栈或用户自定义栈等，空间复杂度为O(n)，均不满足上述要求。</p>
+<p><strong>Morris Traversal</strong>方法可以满足上述两个要求，只需要O(1)的空间复杂度，同时在O(n)时间复杂度内完成遍历。</p>
+<h4 id="一、中序遍历"><a href="#一、中序遍历" class="headerlink" title="一、中序遍历"></a>一、中序遍历</h4><p>我们在中序遍历的时候，一定先遍历左子树，然后遍历当前节点，最后遍历右子树。我们需要一种巧妙地方法可以在O(1)的空间下，遍历完左子树后可以再回到当前节点。我们希望当前节点在遍历完当前节点的前驱之后被遍历，我们可以考虑修改前驱的right指针。当前节点的前驱节点的right指针可能本来就指向当前节点（前驱是当前节点的父节点），也可能是当前节点左子树最右下的节点。如果是后者，我们希望遍历完这个前驱节点后再回到当前节点，可以将它的right指针指向当前节点。</p>
+<p>Morris中序遍历的一个重要步骤就是寻找当前节点的前驱节点，并且Morris中序遍历寻找下一个点始终是通过转移到right指针指向的位置来完成的。</p>
+<ul>
+<li>如果当前节点没有左子树，则遍历这个点，然后跳转到当前节点的右子树。</li>
+<li>如果当前节点有左子树，那么它的前驱节点一定在左子树上，我们可以在左子树上一直向右行走，找到当前点的前驱节点。<ul>
+<li>如果前驱节点没有右子树，就将前驱节点的right指针指向当前节点。这一步是为了在遍历完前驱节点后能找到前驱节点的后继，也就是当前节点。</li>
+<li>如果前驱节点的右子树为当前节点，说明前驱节点已经被遍历过并修改了right指针，这个时候我们重新将前驱的右孩子设置为空，遍历当前节点，然后跳转到当前节点的右子树。</li>
+</ul>
+</li>
+</ul>
+<p>我们可以得到这样的代码框架：</p>
+<pre><code class="hljs c++">Treenode* cur = root, *pre = <span class="hljs-literal">NULL</span>;
+<span class="hljs-keyword">while</span> (cur) &#123;
+    <span class="hljs-keyword">if</span> (!cur-&gt;left) &#123;
+        <span class="hljs-comment">// ...遍历cur</span>
+        cur = cur-&gt;right;
+        <span class="hljs-keyword">continue</span>;
+    &#125;
+    
+    pre = cur-&gt;left;
+    <span class="hljs-keyword">while</span> (pre-&gt;right &amp;&amp; pre-&gt;right != cur) &#123;
+        pre = pre-&gt;right;
+    &#125;
+    
+    <span class="hljs-keyword">if</span> (!pre-&gt;right) &#123;
+        pre-&gt;right = cur;
+        cur = cur-&gt;left;
+    &#125;
+    <span class="hljs-keyword">if</span> (pre-&gt;right == cur) &#123;
+        pre-&gt;right = <span class="hljs-literal">NULL</span>;
+        <span class="hljs-comment">// ...遍历cur</span>
+        cur = cur-&gt;right;   
     &#125;
 &#125;</code></pre>
 
-<h3 id="ArrayList集合存储基本数据："><a href="#ArrayList集合存储基本数据：" class="headerlink" title="ArrayList集合存储基本数据："></a>ArrayList集合存储基本数据：</h3><p>如果希望集合<em>ArrayList</em>当中存储基本类型数据，必须使用基本类型对应的“包装类”。  </p>
-<table>
-<thead>
-<tr>
-<th align="center">基本类型</th>
-<th align="center">包装类（引用类型，包装类都位于java.lang包下）</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">byte</td>
-<td align="center">Byte</td>
-</tr>
-<tr>
-<td align="center">short</td>
-<td align="center">Short</td>
-</tr>
-<tr>
-<td align="center">int</td>
-<td align="center">Integer</td>
-</tr>
-<tr>
-<td align="center">long</td>
-<td align="center">Long</td>
-</tr>
-<tr>
-<td align="center">float</td>
-<td align="center">Float</td>
-</tr>
-<tr>
-<td align="center">double</td>
-<td align="center">Double</td>
-</tr>
-<tr>
-<td align="center">char</td>
-<td align="center">Character</td>
-</tr>
-<tr>
-<td align="center">boolean</td>
-<td align="center">Boolean</td>
-</tr>
-</tbody></table>
-<p>从JDK 1.5+开始，支持自动装箱、自动拆箱。</p>
-<ul>
-<li>自动装箱：基本类型 ——&gt; 包装类型</li>
-<li>自动拆箱：包装类型 ——&gt; 基本类型</li>
-</ul>
-<h4 id="代码示例-1"><a href="#代码示例-1" class="headerlink" title="代码示例"></a>代码示例</h4><pre><code class="hljs java"><span class="hljs-keyword">import</span> java.util.ArrayList;
 
-<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Demo05ArrayListBasic</span> </span>&#123;
-    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;
-        ArrayList&lt;String&gt; listA = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();
-        <span class="hljs-comment">// 错误写法！ 泛型只能是引用类型，不能是基本类型</span>
-<span class="hljs-comment">//        ArrayList&lt;int&gt; listB = new ArrayList&lt;int&gt;();</span>
-
-        ArrayList&lt;Integer&gt; listC = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();
-        listC.add(<span class="hljs-number">100</span>);
-        listC.add(<span class="hljs-number">200</span>);
-        System.out.println(listC);  <span class="hljs-comment">// [100, 200]</span>
-
-        <span class="hljs-keyword">int</span> num = listC.get(<span class="hljs-number">1</span>);
-        System.out.println(num);    <span class="hljs-comment">// 200</span>
-    &#125;
-&#125;</code></pre>
 
 
             </div>
@@ -329,7 +267,9 @@
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/categories/Java/">Java</a>
+                      <a class="hover-with-bg" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/">数据结构与算法</a>
+                    
+                      <a class="hover-with-bg" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E6%80%BB%E7%BB%93/">总结</a>
                     
                   </div>
                 
@@ -337,7 +277,7 @@
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/ArrayList/">ArrayList</a>
+                      <a class="hover-with-bg" href="/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/">二叉树</a>
                     
                   </div>
                 
@@ -350,18 +290,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2020/09/24/Morris%E6%A0%91%E9%81%8D%E5%8E%86%E7%AE%97%E6%B3%95/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Morris树遍历算法</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2020/08/11/%E5%AE%9A%E4%B9%89%E4%B8%80%E4%B8%AA%E6%A0%87%E5%87%86%E7%9A%84%E7%B1%BB/">
-                        <span class="hidden-mobile">定义一个标准的类</span>
+                      <a href="/2020/08/12/ArrayList%E9%9B%86%E5%90%88/">
+                        <span class="hidden-mobile">ArrayList集合</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -526,7 +460,7 @@
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "ArrayList集合&nbsp;",
+        "Morris树遍历算法&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,
