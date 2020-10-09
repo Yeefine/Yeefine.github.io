@@ -1,0 +1,641 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="Yeefine">
+  <meta name="keywords" content="">
+  <title>K-近邻算法 - Yeefine&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+  
+
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_6peoq002giu.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.1.1"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Yeefine</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/img/1.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container page-header text-center fade-in-up">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              
+  <div class="mt-3 post-meta">
+    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+    <time datetime="2020-10-09 22:41" pubdate>
+      2020年10月9日 晚上
+    </time>
+  </div>
+
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      16
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto" id="post">
+            <!-- SEO header -->
+            <h1 style="display: none">K-近邻算法</h1>
+            
+            <div class="markdown-body" id="post-body">
+              <p>​        简单地说，k-近邻算法采用测量不同特征值之间的距离方法进行分类。</p>
+<ul>
+<li><h3 id="工作原理："><a href="#工作原理：" class="headerlink" title="工作原理："></a>工作原理：</h3><p>存在一个样本数据集合，也称为训练样本集，并且样本集中每个数据都存在标签。输入没有标签的新数据后，将新数据的每个特征与样本集中数据对应的特征进行比较，然后算法提取样本集中特征最相似数据（最近邻）的分类标签。一般来说，我们只选择样本数据集中前k个最相似的数据，这就是k-近邻算法中k的出处。最后，选择k个最相似数据中出现次数最多的分类，作为新数据的分类。</p>
+</li>
+<li><h3 id="优点："><a href="#优点：" class="headerlink" title="优点："></a>优点：</h3><p>精度高、对异常值不敏感、无数据输入假定。</p>
+</li>
+<li><h3 id="缺点："><a href="#缺点：" class="headerlink" title="缺点："></a>缺点：</h3><p>计算复杂度高、空间复杂度高。</p>
+</li>
+<li><h3 id="适用数据范围："><a href="#适用数据范围：" class="headerlink" title="适用数据范围："></a>适用数据范围：</h3><p>数值型和标称型。</p>
+</li>
+<li><h3 id="代码："><a href="#代码：" class="headerlink" title="代码："></a>代码：</h3></li>
+</ul>
+<pre><code class="hljs python"><span class="hljs-comment"># -*- coding: utf-8 -*</span>
+<span class="hljs-keyword">from</span> numpy <span class="hljs-keyword">import</span> *
+<span class="hljs-keyword">import</span> operator
+<span class="hljs-keyword">import</span> matplotlib
+<span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt
+<span class="hljs-keyword">from</span> os <span class="hljs-keyword">import</span> listdir
+
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">createDataSet</span>():</span>
+    group = array([[<span class="hljs-number">1.0</span>, <span class="hljs-number">1.1</span>], [<span class="hljs-number">1.0</span>, <span class="hljs-number">1.0</span>], [<span class="hljs-number">0</span>, <span class="hljs-number">0</span>], [<span class="hljs-number">0</span>, <span class="hljs-number">0.1</span>]])
+    labels = [<span class="hljs-string">&#x27;A&#x27;</span>, <span class="hljs-string">&#x27;A&#x27;</span>, <span class="hljs-string">&#x27;B&#x27;</span>, <span class="hljs-string">&#x27;B&#x27;</span>]
+    <span class="hljs-keyword">return</span> group, labels
+
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">classify0</span>(<span class="hljs-params">inX, dataSet, labels, k</span>):</span>
+    dataSetSize = dataSet.shape[<span class="hljs-number">0</span>]
+    diffMat = tile(inX, (dataSetSize,<span class="hljs-number">1</span>),) - dataSet <span class="hljs-comment"># tile：获得dataSetSize行1列的 inX向量（横着）</span>
+    sqDiffMat = diffMat**<span class="hljs-number">2</span>
+    sqDistances = sqDiffMat.sum(axis=<span class="hljs-number">1</span>) <span class="hljs-comment"># axis=1：将一个矩阵的每一行向量内部相加</span>
+    distances = sqDistances**<span class="hljs-number">0.5</span>
+    sortedDistIndicies = distances.argsort()  <span class="hljs-comment"># argsort() 返回数组值从小到大的索引值</span>
+    classCount = &#123;&#125;
+    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(k):
+        votelabel = labels[sortedDistIndicies[i]]
+        classCount[votelabel] = classCount.get(votelabel, <span class="hljs-number">0</span>) + <span class="hljs-number">1</span>
+    sortedClassCount = sorted(classCount.items(), key=operator.itemgetter(<span class="hljs-number">1</span>), reverse=<span class="hljs-literal">True</span>)
+    <span class="hljs-keyword">return</span> sortedClassCount[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>]
+
+
+<span class="hljs-comment"># 将文本记录解析为为 训练样本矩阵，类标签向量</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">file2matrix</span>(<span class="hljs-params">filename</span>):</span>
+    fr = open(filename)
+    arrayOfLines = fr.readlines()    <span class="hljs-comment"># 按行读</span>
+    numberOfLines = len(arrayOfLines)
+    returnMat = zeros((numberOfLines, <span class="hljs-number">3</span>))
+    classLabelVector = []
+    index = <span class="hljs-number">0</span>
+    <span class="hljs-keyword">for</span> line <span class="hljs-keyword">in</span> arrayOfLines:
+        line = line.strip() <span class="hljs-comment"># 截取掉所有的回车字符</span>
+        listFromLine = line.split(<span class="hljs-string">&#x27;\t&#x27;</span>)     <span class="hljs-comment"># 使用tab字符将整行数据分割成一个元素列表</span>
+        returnMat[index, :] = listFromLine[<span class="hljs-number">0</span>:<span class="hljs-number">3</span>]
+        classLabelVector.append(int(listFromLine[<span class="hljs-number">-1</span>]))
+        index += <span class="hljs-number">1</span>
+    <span class="hljs-keyword">return</span> returnMat, classLabelVector
+
+<span class="hljs-comment"># datingDataMat, datingLables = file2matrix(&#x27;datingTestSet2.txt&#x27;)</span>
+<span class="hljs-comment"># fig = plt.figure()</span>
+<span class="hljs-comment"># ax = fig.add_subplot(111)</span>
+<span class="hljs-comment"># ax.scatter(datingDataMat[:,0], datingDataMat[:,1], 15.0*array(datingLables), 15.0*array(datingLables))</span>
+<span class="hljs-comment"># plt.show()</span>
+
+
+<span class="hljs-comment"># 归一化特征值</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">autoNorm</span>(<span class="hljs-params">dataSet</span>):</span>
+    minVals = dataSet.min(<span class="hljs-number">0</span>)    <span class="hljs-comment"># min(0)返回该矩阵中每一列的最小值 / min(1)返回该矩阵中每一行的最小值</span>
+    maxVals = dataSet.max(<span class="hljs-number">0</span>)
+    ranges = maxVals - minVals
+    normDataSet = zeros(shape(dataSet))
+    m = dataSet.shape[<span class="hljs-number">0</span>]
+    normDataSet = dataSet - tile(minVals, (m,<span class="hljs-number">1</span>))
+    normDataSet = normDataSet / tile(ranges, (m,<span class="hljs-number">1</span>))
+    <span class="hljs-keyword">return</span> normDataSet, ranges, minVals
+
+<span class="hljs-comment"># normMat, ranges, minVals = autoNorm(datingDataMat)</span>
+
+
+<span class="hljs-comment"># 测试集的错误率</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">datingClassTest</span>():</span>
+    hoRatio = <span class="hljs-number">0.10</span>
+    datingDataMat, datingLables = file2matrix(<span class="hljs-string">&#x27;datingTestSet2.txt&#x27;</span>)
+    normMat, ranges, minVals = autoNorm(datingDataMat)
+    m = normMat.shape[<span class="hljs-number">0</span>]
+    numTestVecs = int(m*hoRatio)
+    errorCount = <span class="hljs-number">0.0</span>
+    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(numTestVecs):
+        classifierResult = classify0(normMat[i, :], normMat[numTestVecs:m, :], datingLables[numTestVecs:m], <span class="hljs-number">3</span>)
+        print(<span class="hljs-string">&quot;the classifier came back with: %d, the real answer is: %d&quot;</span> % (classifierResult, datingLables[i]))
+        <span class="hljs-keyword">if</span>(classifierResult != datingLables[i]): errorCount += <span class="hljs-number">1.0</span>
+    print(<span class="hljs-string">&quot;the total error rate is: %f&quot;</span> % (errorCount/float(numTestVecs)))
+
+
+<span class="hljs-comment"># 预测具体的人</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">classifyPerson</span>():</span>
+    resultList = [<span class="hljs-string">&#x27;not at all&#x27;</span>, <span class="hljs-string">&#x27;in small doses&#x27;</span>, <span class="hljs-string">&#x27;in large doses&#x27;</span>]
+    percentTats = float(input(<span class="hljs-string">&quot;percentage of time spent playing video games?&quot;</span>))
+    ffMiles = float(input(<span class="hljs-string">&quot;frequent flier miles earned per year?&quot;</span>))
+    iceCream = float(input(<span class="hljs-string">&quot;liters of ice cream consumed per year?&quot;</span>))
+    datingDataMat, datingLables = file2matrix(<span class="hljs-string">&quot;datingTestSet2.txt&quot;</span>)
+    normMat, ranges, minVals = autoNorm(datingDataMat)
+    inArr = array([percentTats, ffMiles, iceCream])
+    classifierResult = classify0((inArr-minVals)/ranges, normMat,datingLables,<span class="hljs-number">3</span>)
+    print(<span class="hljs-string">&quot;You will probably like this person: &quot;</span>, resultList[classifierResult<span class="hljs-number">-1</span>])
+
+
+<span class="hljs-comment"># 准备数据（将32*32的二进制图像矩阵转换为1*1024的向量）</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">img2vector</span>(<span class="hljs-params">filename</span>):</span>
+    returnVect = zeros((<span class="hljs-number">1</span>, <span class="hljs-number">1024</span>))
+    fr = open(filename)
+    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">32</span>):
+        lineStr = fr.readline()
+        <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> range(<span class="hljs-number">32</span>):
+            returnVect[<span class="hljs-number">0</span>, <span class="hljs-number">32</span>*i+j] = int(lineStr[j])
+    <span class="hljs-keyword">return</span> returnVect
+
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">handwritingClassTest</span>():</span>
+    hwLabels = []   <span class="hljs-comment"># 标签集</span>
+    trainingFileList = listdir(<span class="hljs-string">&#x27;trainingDigits&#x27;</span>)    <span class="hljs-comment"># 列出给定目录下的文件名</span>
+    m = len(trainingFileList)
+    trainingMat = zeros((m, <span class="hljs-number">1024</span>))
+    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(m):
+        fileNameStr = trainingFileList[i]   <span class="hljs-comment"># 文件名 如&#x27;9_45.txt&#x27;,数字9的第45个实例</span>
+        fileStr = fileNameStr.split(<span class="hljs-string">&#x27;.&#x27;</span>)[<span class="hljs-number">0</span>] <span class="hljs-comment"># &#x27;9_45&#x27;</span>
+        classNumStr = int(fileStr.split(<span class="hljs-string">&#x27;_&#x27;</span>)[<span class="hljs-number">0</span>])   <span class="hljs-comment"># 9</span>
+        hwLabels.append(classNumStr)
+        trainingMat[i,:] = img2vector(<span class="hljs-string">&#x27;trainingDigits/%s&#x27;</span> % fileNameStr)
+    testFileList = listdir(<span class="hljs-string">&#x27;testDigits&#x27;</span>)
+    errorCount = <span class="hljs-number">0.0</span>
+    mTest = len(testFileList)
+    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(mTest):
+        fileNameStr = testFileList[i]
+        fileStr = fileNameStr.split(<span class="hljs-string">&#x27;.&#x27;</span>)[<span class="hljs-number">0</span>]
+        classNumStr = int(fileStr.split(<span class="hljs-string">&#x27;_&#x27;</span>)[<span class="hljs-number">0</span>])
+        vectorUnderTest = img2vector(<span class="hljs-string">&#x27;testDigits/%s&#x27;</span> % fileNameStr)
+        classifierResult = classify0(vectorUnderTest, trainingMat, hwLabels, <span class="hljs-number">3</span>)
+        print(<span class="hljs-string">&quot;the classifier came back with: %d, the real answer is: %d&quot;</span> % (classifierResult, classNumStr))
+        <span class="hljs-keyword">if</span>(classifierResult != classNumStr):    errorCount += <span class="hljs-number">1.0</span>
+    print(<span class="hljs-string">&quot;\nthe total number of errors is: %d&quot;</span> % errorCount)
+    print(<span class="hljs-string">&quot;\nthe total error rate is: %f&quot;</span> % (errorCount/float(mTest)))
+
+</code></pre>
+
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">机器学习</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%88%86%E7%B1%BB%E7%AE%97%E6%B3%95/">分类算法</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E6%9C%89%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0/">有监督学习</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2020/09/24/Morris%E6%A0%91%E9%81%8D%E5%8E%86%E7%AE%97%E6%B3%95/">
+                        <span class="hidden-mobile">Morris树遍历算法</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '#post-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "K-近邻算法&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
