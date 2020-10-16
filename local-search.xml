@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>继承中方法的覆盖重写</title>
+    <link href="/2020/10/14/%E7%BB%A7%E6%89%BF%E4%B8%AD%E6%96%B9%E6%B3%95%E7%9A%84%E8%A6%86%E7%9B%96%E9%87%8D%E5%86%99/"/>
+    <url>/2020/10/14/%E7%BB%A7%E6%89%BF%E4%B8%AD%E6%96%B9%E6%B3%95%E7%9A%84%E8%A6%86%E7%9B%96%E9%87%8D%E5%86%99/</url>
+    
+    <content type="html"><![CDATA[<h3 id="重写（Override）"><a href="#重写（Override）" class="headerlink" title="重写（Override）"></a>重写（Override）</h3><p>概念：在继承关系中，方法的名称一样，参数列表<strong>也一样</strong>。建议使用覆盖、覆写的叫法，不易混淆。</p><h4 id="重写与重载的区别："><a href="#重写与重载的区别：" class="headerlink" title="重写与重载的区别："></a>重写与重载的区别：</h4><ul><li>重写（Override）：方法的名称一样，参数列表<strong>也一样</strong>。覆盖、覆写。</li><li>重载（Overload）：方法的名称一样，参数列表<strong>不一样</strong>。详情请见<a href="https://w-avan.github.io/2020/07/22/%E6%96%B9%E6%B3%95%E9%87%8D%E8%BD%BD/">方法重载</a></li></ul><h4 id="方法覆盖重写的注意事项："><a href="#方法覆盖重写的注意事项：" class="headerlink" title="方法覆盖重写的注意事项："></a>方法覆盖重写的注意事项：</h4><ol><li><p>必须保证父子类之间的方法名称相同，参数列表也相同。</p><p>@Override：写在方法前面，用来检测是不是有效的正确覆盖方法。</p><p>这个注解就算不写，只要满足要求，也是正确的方法覆盖重写。</p></li><li><p>子类方法的返回值必须<strong>小于等于</strong>父类方法的返回值范围。</p><p>小扩展提示：java.lang.Object类是所有类的公共最高父类（祖宗类），java.lang.String就是Object的子类。</p></li><li><p>子类方法的权限必须<strong>大于等于</strong>父类方法的权限修饰符。</p><p>小扩展提示：public &gt; protected &gt; (default) &gt; private</p><p>备注：（default）不是关键字default，而是什么都不写，留空。</p></li></ol>]]></content>
+    
+    
+    <categories>
+      
+      <category>Java</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>继承</tag>
+      
+      <tag>Override</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>继承中成员变量的访问特点</title>
     <link href="/2020/10/14/%E7%BB%A7%E6%89%BF%E4%B8%AD%E6%88%90%E5%91%98%E5%8F%98%E9%87%8F%E7%9A%84%E8%AE%BF%E9%97%AE%E7%89%B9%E7%82%B9/"/>
     <url>/2020/10/14/%E7%BB%A7%E6%89%BF%E4%B8%AD%E6%88%90%E5%91%98%E5%8F%98%E9%87%8F%E7%9A%84%E8%AE%BF%E9%97%AE%E7%89%B9%E7%82%B9/</url>
