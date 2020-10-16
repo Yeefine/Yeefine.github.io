@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="Yeefine">
   <meta name="keywords" content="">
-  <title>继承中方法的覆盖重写 - Yeefine&#39;s Blog</title>
+  <title>父子类构造方法的访问特点 - Yeefine&#39;s Blog</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 
@@ -160,8 +160,8 @@
               
   <div class="mt-3 post-meta">
     <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-    <time datetime="2020-10-14 22:49" pubdate>
-      2020年10月14日 晚上
+    <time datetime="2020-10-16 15:19" pubdate>
+      2020年10月16日 下午
     </time>
   </div>
 
@@ -171,7 +171,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      284 字
+      302 字
     </span>
   
 
@@ -211,27 +211,43 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto" id="post">
             <!-- SEO header -->
-            <h1 style="display: none">继承中方法的覆盖重写</h1>
+            <h1 style="display: none">父子类构造方法的访问特点</h1>
             
             <div class="markdown-body" id="post-body">
-              <h3 id="重写（Override）"><a href="#重写（Override）" class="headerlink" title="重写（Override）"></a>重写（Override）</h3><p>概念：在继承关系中，方法的名称一样，参数列表<strong>也一样</strong>。建议使用覆盖、覆写的叫法，不易混淆。</p>
-<h4 id="重写与重载的区别："><a href="#重写与重载的区别：" class="headerlink" title="重写与重载的区别："></a>重写与重载的区别：</h4><ul>
-<li>重写（Override）：方法的名称一样，参数列表<strong>也一样</strong>。覆盖、覆写。</li>
-<li>重载（Overload）：方法的名称一样，参数列表<strong>不一样</strong>。详情请见<a target="_blank" rel="noopener" href="https://w-avan.github.io/2020/07/22/%E6%96%B9%E6%B3%95%E9%87%8D%E8%BD%BD/">方法重载</a></li>
-</ul>
-<h4 id="方法覆盖重写的注意事项："><a href="#方法覆盖重写的注意事项：" class="headerlink" title="方法覆盖重写的注意事项："></a>方法覆盖重写的注意事项：</h4><ol>
-<li><p>必须保证父子类之间的方法名称相同，参数列表也相同。</p>
-<p>@Override：写在方法前面，用来检测是不是有效的正确覆盖方法。</p>
-<p>这个注解就算不写，只要满足要求，也是正确的方法覆盖重写。</p>
-</li>
-<li><p>子类方法的返回值必须<strong>小于等于</strong>父类方法的返回值范围。</p>
-<p>小扩展提示：java.lang.Object类是所有类的公共最高父类（祖宗类），java.lang.String就是Object的子类。</p>
-</li>
-<li><p>子类方法的权限必须<strong>大于等于</strong>父类方法的权限修饰符。</p>
-<p>小扩展提示：public &gt; protected &gt; (default) &gt; private</p>
-<p>备注：（default）不是关键字default，而是什么都不写，留空。</p>
-</li>
+              <p>在继承关系中，父子类构造方法的访问特点：</p>
+<ol>
+<li>子类构造方法当中有一个默认隐含的 <em>“super()”</em> 调用，所以一定是先调用的父类构造，后执行的子类构造。</li>
+<li>子类构造可以通过super关键字来调用父类重载构造。</li>
+<li>super的父类构造调用，必须是子类构造方法的第一个语句。不能一个子类构造调用多次super构造。</li>
 </ol>
+<p>总结：</p>
+<p>​    子类必须调用父类构造方法，不写则赠送super()；写了则用写的指定的super调用，super只能有一个，还必须是第一个。</p>
+<h4 id="代码示例"><a href="#代码示例" class="headerlink" title="代码示例"></a>代码示例</h4><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Fu</span> </span>&#123;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">Fu</span><span class="hljs-params">()</span> </span>&#123;
+        System.out.println(<span class="hljs-string">&quot;父类无参构造执行&quot;</span>);
+    &#125;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">Fu</span><span class="hljs-params">(<span class="hljs-keyword">int</span> num)</span> </span>&#123;
+        System.out.println(<span class="hljs-string">&quot;父类有参构造执行&quot;</span>);
+    &#125;
+&#125;
+
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Zi</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Fu</span> </span>&#123;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">Zi</span><span class="hljs-params">()</span> </span>&#123;
+<span class="hljs-comment">//        super();    // 在调用父类无参构造方法</span>
+        <span class="hljs-keyword">super</span>(<span class="hljs-number">10</span>);  <span class="hljs-comment">// 在调用父类重载的构造方法</span>
+        System.out.println(<span class="hljs-string">&quot;子类构造方法执行&quot;</span>);
+    &#125;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">method</span><span class="hljs-params">()</span> </span>&#123;
+<span class="hljs-comment">//        super();  // 错误写法！只有子类构造方法，才能调用父类构造方法。</span>
+    &#125;
+&#125;
+
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Demo01Constructor</span> </span>&#123;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;
+        Zi zi = <span class="hljs-keyword">new</span> Zi();
+    &#125;
+&#125;</code></pre>
+
 
             </div>
             <hr>
@@ -251,7 +267,7 @@
                     
                       <a class="hover-with-bg" href="/tags/%E7%BB%A7%E6%89%BF/">继承</a>
                     
-                      <a class="hover-with-bg" href="/tags/Override/">Override</a>
+                      <a class="hover-with-bg" href="/tags/%E6%9E%84%E9%80%A0%E6%96%B9%E6%B3%95/">构造方法</a>
                     
                   </div>
                 
@@ -264,9 +280,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2020/10/16/%E7%88%B6%E5%AD%90%E7%B1%BB%E6%9E%84%E9%80%A0%E6%96%B9%E6%B3%95%E7%9A%84%E8%AE%BF%E9%97%AE%E7%89%B9%E7%82%B9/">
+                      <a href="/2020/10/16/super%E5%92%8Cthis%E5%85%B3%E9%94%AE%E5%AD%97%E5%9B%BE%E8%A7%A3/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">父子类构造方法的访问特点</span>
+                        <span class="hidden-mobile">super和this关键字图解</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -274,8 +290,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2020/10/14/%E7%BB%A7%E6%89%BF%E4%B8%AD%E6%88%90%E5%91%98%E5%8F%98%E9%87%8F%E7%9A%84%E8%AE%BF%E9%97%AE%E7%89%B9%E7%82%B9/">
-                        <span class="hidden-mobile">继承中成员变量的访问特点</span>
+                      <a href="/2020/10/14/%E7%BB%A7%E6%89%BF%E4%B8%AD%E6%96%B9%E6%B3%95%E7%9A%84%E8%A6%86%E7%9B%96%E9%87%8D%E5%86%99/">
+                        <span class="hidden-mobile">继承中方法的覆盖重写</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -440,7 +456,7 @@
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "继承中方法的覆盖重写&nbsp;",
+        "父子类构造方法的访问特点&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,
