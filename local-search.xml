@@ -4,6 +4,31 @@
   
   
   <entry>
+    <title>反射案例</title>
+    <link href="/2020/11/27/%E5%8F%8D%E5%B0%84%E6%A1%88%E4%BE%8B/"/>
+    <url>/2020/11/27/%E5%8F%8D%E5%B0%84%E6%A1%88%E4%BE%8B/</url>
+    
+    <content type="html"><![CDATA[<ul><li>需求：写一个“框架，可以帮我们创建任意类的对象，并执行其中任意方法。</li><li>实现：<ul><li>配置文件</li><li>反射</li></ul></li><li>步骤：<ul><li>将需要创建的对象的全类名和需要执行的方法定义在配置文件中</li><li>在程序中加载读取配置文件</li><li>使用反射技术来加载类文件进内存</li><li>创建对象</li><li>执行方法</li></ul></li></ul><p>首先定义配置文件<code>pro.properties</code>：</p><pre><code class="hljs properties"><span class="hljs-attr">className</span>=<span class="hljs-string">com.domain.Student</span><span class="hljs-attr">methodName</span>=<span class="hljs-string">sleep</span></code></pre><p>定义两种测试类：</p><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Student</span> </span>&#123;    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">sleep</span><span class="hljs-params">()</span> </span>&#123;        System.out.println(<span class="hljs-string">&quot;sleep...&quot;</span>);    &#125;&#125;<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Person</span> </span>&#123;    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">eat</span><span class="hljs-params">()</span> </span>&#123;        System.out.println(<span class="hljs-string">&quot;eat...&quot;</span>);    &#125;&#125;</code></pre><p>定义反射测试类：</p><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ReflectTest</span> </span>&#123;    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> Exception </span>&#123;        <span class="hljs-comment">// 1.加载配置文件</span>        <span class="hljs-comment">// 1.1创建Properties对象</span>        Properties pro = <span class="hljs-keyword">new</span> Properties();        <span class="hljs-comment">// 1.2加载配置文件，转换为一个集合</span>        <span class="hljs-comment">// 1.2.1获取class目录下的配置文件</span>        ClassLoader classLoader = ReflectTest.class.getClassLoader();        InputStream is = classLoader.getResourceAsStream(<span class="hljs-string">&quot;pro.properties&quot;</span>);        pro.load(is);        String className = pro.getProperty(<span class="hljs-string">&quot;className&quot;</span>);        String methodName = pro.getProperty(<span class="hljs-string">&quot;methodName&quot;</span>);        Class cls = Class.forName(className);        Object o = cls.getDeclaredConstructor().newInstance();        Method method = cls.getMethod(methodName);        method.invoke(o);    &#125;&#125;</code></pre><p>若想创建<code>Person</code>对象且执行<code>eat()</code>方法，无需修改具体的代码实现部分，仅需修改配置文件<code>pro.properties</code>为：</p><pre><code class="hljs properties"><span class="hljs-attr">className</span>=<span class="hljs-string">com.domain.Person</span><span class="hljs-attr">methodName</span>=<span class="hljs-string">eat</span></code></pre><p>如果所写的系统十分庞大，修改java代码后，需要重新测试，重新编译，重新上线等等。但是配置文件仅仅只是一个物理文件，修改方便，且让程序的扩展性更强。</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>Java</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>反射</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>接口的内容小结</title>
     <link href="/2020/10/18/%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%86%85%E5%AE%B9%E5%B0%8F%E7%BB%93/"/>
     <url>/2020/10/18/%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%86%85%E5%AE%B9%E5%B0%8F%E7%BB%93/</url>

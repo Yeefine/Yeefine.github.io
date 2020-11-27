@@ -167,12 +167,18 @@
                 
 
 <div class="list-group">
-  <p class="h4">共计 10 篇文章</p>
+  <p class="h4">共计 11 篇文章</p>
   <hr>
   
     
       
       <p class="h5">2020</p>
+    
+    <a href="/2020/11/27/%E5%8F%8D%E5%B0%84%E6%A1%88%E4%BE%8B/" class="list-group-item list-group-item-action">
+      <span class="archive-post-title">反射案例</span>
+      <time style="float: right;">11-27</time>
+    </a>
+  
     
     <a href="/2020/10/18/%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%86%85%E5%AE%B9%E5%B0%8F%E7%BB%93/" class="list-group-item list-group-item-action">
       <span class="archive-post-title">接口的内容小结</span>
@@ -227,13 +233,19 @@
       <time style="float: right;">07-23</time>
     </a>
   
-    
-    <a href="/2020/07/22/%E6%96%B9%E6%B3%95%E9%87%8D%E8%BD%BD/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">方法重载</span>
-      <time style="float: right;">07-22</time>
-    </a>
-  
 </div>
+
+  <nav aria-label="navigation">
+    <span class="pagination" id="pagination">
+      <span class="page-number current">1</span><a class="page-number" href="/categories/Java/page/2/">2</a><a class="extend next" rel="next" href="/categories/Java/page/2/"><i class="iconfont icon-arrowright"></i></a>
+    </span>
+  </nav>
+  
+  <script>
+    for (ele of document.getElementById("pagination").getElementsByTagName("a")) {
+      ele.href += '#board';
+    }
+  </script>
 
 
 
