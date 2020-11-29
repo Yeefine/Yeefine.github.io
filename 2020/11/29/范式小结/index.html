@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="Yeefine">
   <meta name="keywords" content="">
-  <title>反射案例 - Yeefine&#39;s Blog</title>
+  <title>范式小结 - Yeefine&#39;s Blog</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 
@@ -160,8 +160,8 @@
               
   <div class="mt-3 post-meta">
     <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-    <time datetime="2020-11-27 15:50" pubdate>
-      2020年11月27日 下午
+    <time datetime="2020-11-29 22:22" pubdate>
+      2020年11月29日 晚上
     </time>
   </div>
 
@@ -171,7 +171,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      377 字
+      811 字
     </span>
   
 
@@ -181,7 +181,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      5
+      8
        分钟
     </span>
   
@@ -211,67 +211,49 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto" id="post">
             <!-- SEO header -->
-            <h1 style="display: none">反射案例</h1>
+            <h1 style="display: none">范式小结</h1>
             
             <div class="markdown-body" id="post-body">
-              <ul>
-<li>需求：写一个“框架，可以帮我们创建任意类的对象，并执行其中任意方法。</li>
-<li>实现：<ul>
-<li>配置文件</li>
-<li>反射</li>
-</ul>
+              <h2 id="数据库设计范式"><a href="#数据库设计范式" class="headerlink" title="数据库设计范式"></a>数据库设计范式</h2><h3 id="概念："><a href="#概念：" class="headerlink" title="概念："></a>概念：</h3><p>设计数据库时，需要遵循的一些规范。要遵循后边的范式要求，必须先遵循前边的所有范式要求。    </p>
+<p>设计关系数据库时，遵从不同的规范要求，设计出合理的关系型数据库，这些不同的规范要求被称为不同的范式，各种范式呈递次规范，越高的范式数据库冗余越小。  </p>
+<p>目前关系数据库有六种范式：第一范式（1NF）、第二范式（2NF）、第三范式（3NF）、巴斯-科德范式（BCNF）、第四范式（4NF）和第五范式（5NF，又称完美范式）。    </p>
+<h3 id="补充概念："><a href="#补充概念：" class="headerlink" title="补充概念："></a>补充概念：</h3><ol>
+<li><p><strong>函数依赖：</strong>A—&gt;B，如果通过A属性（属性组）的值，可以确定唯一B属性的值，则称B依赖于A。</p>
+<p>例如： 学号—&gt;姓名、（学号，课程名称）—&gt; 分数  </p>
 </li>
-<li>步骤：<ul>
-<li>将需要创建的对象的全类名和需要执行的方法定义在配置文件中</li>
-<li>在程序中加载读取配置文件</li>
-<li>使用反射技术来加载类文件进内存</li>
-<li>创建对象</li>
-<li>执行方法</li>
-</ul>
+<li><p><strong>完全函数依赖：</strong> A—&gt;B，如果A是一个属性组，则B属性值的确定需要依赖于A属性组中所有的属性值。</p>
+<p>例如：（学号，课程名称）—&gt; 分数</p>
 </li>
-</ul>
-<p>首先定义配置文件<code>pro.properties</code>：</p>
-<pre><code class="hljs properties"><span class="hljs-attr">className</span>=<span class="hljs-string">com.domain.Student</span>
-<span class="hljs-attr">methodName</span>=<span class="hljs-string">sleep</span></code></pre>
-<p>定义两种测试类：</p>
-<pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Student</span> </span>&#123;
-    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">sleep</span><span class="hljs-params">()</span> </span>&#123;
-        System.out.println(<span class="hljs-string">&quot;sleep...&quot;</span>);
-    &#125;
-&#125;
-
-<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Person</span> </span>&#123;
-    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">eat</span><span class="hljs-params">()</span> </span>&#123;
-        System.out.println(<span class="hljs-string">&quot;eat...&quot;</span>);
-    &#125;
-&#125;</code></pre>
-<p>定义反射测试类：</p>
-<pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ReflectTest</span> </span>&#123;
-    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> Exception </span>&#123;
-        <span class="hljs-comment">// 1.加载配置文件</span>
-        <span class="hljs-comment">// 1.1创建Properties对象</span>
-        Properties pro = <span class="hljs-keyword">new</span> Properties();
-        <span class="hljs-comment">// 1.2加载配置文件，转换为一个集合</span>
-        <span class="hljs-comment">// 1.2.1获取class目录下的配置文件</span>
-        ClassLoader classLoader = ReflectTest.class.getClassLoader();
-        InputStream is = classLoader.getResourceAsStream(<span class="hljs-string">&quot;pro.properties&quot;</span>);
-        pro.load(is);
-
-        String className = pro.getProperty(<span class="hljs-string">&quot;className&quot;</span>);
-        String methodName = pro.getProperty(<span class="hljs-string">&quot;methodName&quot;</span>);
-
-        Class cls = Class.forName(className);
-        Object o = cls.getDeclaredConstructor().newInstance();
-        Method method = cls.getMethod(methodName);
-
-        method.invoke(o);
-
-    &#125;
-&#125;</code></pre>
-<p>若想创建<code>Person</code>对象且执行<code>eat()</code>方法，无需修改具体的代码实现部分，仅需修改配置文件<code>pro.properties</code>为：</p>
-<pre><code class="hljs properties"><span class="hljs-attr">className</span>=<span class="hljs-string">com.domain.Person</span>
-<span class="hljs-attr">methodName</span>=<span class="hljs-string">eat</span></code></pre>
-<p>如果所写的系统十分庞大，修改java代码后，需要重新测试，重新编译，重新上线等等。但是配置文件仅仅只是一个物理文件，修改方便，且让程序的扩展性更强。</p>
+<li><p><strong>部分函数依赖：</strong> A—&gt;B，如果A是一个属性组，则B属性值的确定只需要依赖于A属性组中某一些值即可。</p>
+<p>例如：（学号，课程名称）—&gt; 姓名</p>
+</li>
+<li><p><strong>传递函数依赖：</strong> A—&gt;B，B—&gt;C。如果通过A属性（属性值）的值，可以确定唯一B属性的值，在通过B属性（属性组）的值可以确定唯一C属性的值，则称C传递函数依赖于A。</p>
+<p>例如：学号 —&gt; 系名，系名 —&gt;系主任</p>
+</li>
+<li><p><strong>码：</strong> 如果在一张表中，一个属性或属性组，被其他所有属性所完全依赖，则称这个属性（属性值）为该表的码。</p>
+<p>例如：下例的该表中为码为：（学号，课程名称）</p>
+</li>
+</ol>
+<h3 id="分类："><a href="#分类：" class="headerlink" title="分类："></a>分类：</h3><ol>
+<li><strong>第一范式（1NF）</strong>：每一列都是不可分割的原子数据项。</li>
+<li><strong>第二范式（2NF）</strong>：在1NF的基础上，非码属性必须完全依赖于候选码（在1NF基础上消除非主属性对主码的部分函数依赖）  </li>
+<li><strong>第三范式（3NF）</strong>：在2NF基础上，任何非主属性不依赖于其他非主属性（在2NF基础上消除传递依赖）</li>
+</ol>
+<h3 id="举例说明："><a href="#举例说明：" class="headerlink" title="举例说明："></a>举例说明：</h3><h4 id="1-非范式表-——-gt-1NF"><a href="#1-非范式表-——-gt-1NF" class="headerlink" title="1. 非范式表 ——&gt; 1NF"></a>1. 非范式表 ——&gt; 1NF</h4><p>​    左边的表中<strong>系</strong>这一列被分割为（系名，系主任），因此不满足<code>1NF</code>的要求。</p>
+<p><img src="https://raw.githubusercontent.com/Yeefine/picBed/master/20201129224335.png" srcset="/img/loading.gif" alt=""></p>
+<p>​        右表为改进后的表，满足<code>1NF</code>。但同时也存在以下几个问题：    </p>
+<pre><code>        1. 存在非常严重的数据冗余（重复）：姓名、系名、系主任
+           2. 数据添加存在问题：添加新开设的系和系主任时，数据不合法
+           3. 数据删除存在问题：张无忌同学毕业了，删除数据，会将系的数据一起删除。
+</code></pre><h4 id="2-1NF-——-gt-2NF"><a href="#2-1NF-——-gt-2NF" class="headerlink" title="2. 1NF ——&gt; 2NF"></a>2. 1NF ——&gt; 2NF</h4><p><img src="https://raw.githubusercontent.com/Yeefine/picBed/master/20201129234647.png" srcset="/img/loading.gif" alt=""></p>
+<p>存在的问题：</p>
+<p>​    <del>存在非常严重的数据冗余（重复）：姓名、系名、系主任</del></p>
+<ol>
+<li>数据添加存在问题：添加心可舍得系和系主任时，数据不合法</li>
+<li>数据删除存在问题：张无忌同学毕业了，删除数据，会将系的数据一起删除。</li>
+</ol>
+<h4 id="3-2NF-——-gt-3NF"><a href="#3-2NF-——-gt-3NF" class="headerlink" title="3. 2NF ——&gt; 3NF"></a>3. 2NF ——&gt; 3NF</h4><p><img src="https://raw.githubusercontent.com/Yeefine/picBed/master/20201129235556.png" srcset="/img/loading.gif" alt=""></p>
+<p>上述三个问题全部被解决掉了！！</p>
 
             </div>
             <hr>
@@ -281,7 +263,7 @@
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/categories/Java/">Java</a>
+                      <a class="hover-with-bg" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>
                     
                   </div>
                 
@@ -289,7 +271,7 @@
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/%E5%8F%8D%E5%B0%84/">反射</a>
+                      <a class="hover-with-bg" href="/tags/%E8%8C%83%E5%BC%8F/">范式</a>
                     
                   </div>
                 
@@ -302,18 +284,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2020/11/29/%E8%8C%83%E5%BC%8F%E5%B0%8F%E7%BB%93/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">范式小结</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2020/10/18/%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%86%85%E5%AE%B9%E5%B0%8F%E7%BB%93/">
-                        <span class="hidden-mobile">接口的内容小结</span>
+                      <a href="/2020/11/27/%E5%8F%8D%E5%B0%84%E6%A1%88%E4%BE%8B/">
+                        <span class="hidden-mobile">反射案例</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -478,7 +454,7 @@
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "反射案例&nbsp;",
+        "范式小结&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,
