@@ -171,7 +171,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      810 字
+      808 字
     </span>
   
 
@@ -241,12 +241,11 @@
 </ol>
 <h3 id="举例说明："><a href="#举例说明：" class="headerlink" title="举例说明："></a>举例说明：</h3><h4 id="1-非范式表-——-gt-1NF"><a href="#1-非范式表-——-gt-1NF" class="headerlink" title="1. 非范式表 ——&gt; 1NF"></a>1. 非范式表 ——&gt; 1NF</h4><p>​    左边的表中<strong>系</strong>这一列被分割为（系名，系主任），因此不满足<code>1NF</code>的要求。</p>
 <p><img src="https://raw.githubusercontent.com/Yeefine/picBed/master/20201129224335.png" srcset="/img/loading.gif" alt=""></p>
-<p>​        右表为改进后的表，满足<code>1NF</code>。但同时也存在以下几个问题：    </p>
+<p>右表为改进后的表，满足<code>1NF</code>。但同时也存在以下几个问题：    </p>
 <ol>
-<li><p>存在非常严重的数据冗余（重复）：姓名、系名、系主任</p>
-<pre><code>           2. 数据添加存在问题：添加新开设的系和系主任时，数据不合法
-           3. 数据删除存在问题：张无忌同学毕业了，删除数据，会将系的数据一起删除。
-</code></pre></li>
+<li>存在非常严重的数据冗余（重复）：姓名、系名、系主任</li>
+<li>数据添加存在问题：添加新开设的系和系主任时，数据不合法</li>
+<li>数据删除存在问题：张无忌同学毕业了，删除数据，会将系的数据一起删除。</li>
 </ol>
 <h4 id="2-1NF-——-gt-2NF"><a href="#2-1NF-——-gt-2NF" class="headerlink" title="2. 1NF ——&gt; 2NF"></a>2. 1NF ——&gt; 2NF</h4><p><img src="https://raw.githubusercontent.com/Yeefine/picBed/master/20201129234647.png" srcset="/img/loading.gif" alt=""></p>
 <p>存在的问题：</p>
