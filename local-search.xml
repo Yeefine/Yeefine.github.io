@@ -4,6 +4,31 @@
   
   
   <entry>
+    <title>朴素贝叶斯实现文本数据的分类与分析</title>
+    <link href="/2020/11/30/%E6%9C%B4%E7%B4%A0%E8%B4%9D%E5%8F%B6%E6%96%AF%E5%AE%9E%E7%8E%B0%E6%96%87%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%9A%84%E5%88%86%E7%B1%BB%E4%B8%8E%E5%88%86%E6%9E%90/"/>
+    <url>/2020/11/30/%E6%9C%B4%E7%B4%A0%E8%B4%9D%E5%8F%B6%E6%96%AF%E5%AE%9E%E7%8E%B0%E6%96%87%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%9A%84%E5%88%86%E7%B1%BB%E4%B8%8E%E5%88%86%E6%9E%90/</url>
+    
+    <content type="html"><![CDATA[<p>关于实现朴素贝叶斯算法的原理，<a href="https://www.cnblogs.com/hapjin/articles/8119797.html">参考于此</a>。</p><p>利用朴素贝叶斯算法实现对文本的数据挖掘，主要包括：</p><ol><li>语料库的构建，主要包括利用爬虫收集Web文档等。</li><li>语料库的数据预处理，包括文档建模，如去噪，分词，建立数据字典。</li><li>自行实现朴素贝叶斯，训练文本分类器。</li><li>对测试集的文本进行分类</li><li>对测试集的分类结果利用正确率和召回率进行分析评价。</li></ol><h4 id="数据预处理"><a href="#数据预处理" class="headerlink" title="数据预处理"></a>数据预处理</h4><ol><li>爬虫技术：</li></ol><p>依赖python requests库：requests可以支持HTTP特性，是python中最常用的http客户端库。  </p><p>从环球网、新浪网、搜狐网等大型门户网站上爬取得到的原始数据如下图所示。文本数据所属类别分别包括：动漫、汽车、娱乐、财经、游戏、健康、历史、军事、运动、科技，共十大类。总体数据量共一百万条。</p><p><img src="https://raw.githubusercontent.com/Yeefine/picBed/master/20201130232028.png" alt=""></p><ol><li>对爬取到的数据进行分词  </li></ol><p>使用jieba分词库将所有句子分成词组的形式，再通过停用词表过滤过滤掉所有的停用词和字符。得到如下文本数据如下图所示。</p><p><img src="https://raw.githubusercontent.com/Yeefine/picBed/master/20201130232158.png" alt=""></p><ol><li>生成词袋</li></ol><p>再通过使用<code>TF_IDF</code>技术，贝叶斯算法需要保留按照分值排序前40000个词汇，获得经过<code>TF_IDF</code>处理后的词汇表。  </p><p><img src="https://raw.githubusercontent.com/Yeefine/picBed/master/20201130232356.png" alt=""></p><h4 id="实验结果"><a href="#实验结果" class="headerlink" title="实验结果"></a>实验结果</h4><p>对于50w条测试集的测试结果展示：</p><p><img src="https://raw.githubusercontent.com/Yeefine/picBed/master/20201130225901.png" style="zoom: 50%;" /></p><p><img src="https://raw.githubusercontent.com/Yeefine/picBed/master/20201130225937.png" style="zoom: 67%;" /></p><h5 id="程序使用数据集以及具体实现代码，点击这里"><a href="#程序使用数据集以及具体实现代码，点击这里" class="headerlink" title="程序使用数据集以及具体实现代码，点击这里"></a>程序使用数据集以及具体实现代码，<a href="https://github.com/Yeefine/DM_DW_Exercise">点击这里</a></h5>]]></content>
+    
+    
+    <categories>
+      
+      <category>机器学习</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>朴素贝叶斯</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>事务小结</title>
     <link href="/2020/11/30/%E4%BA%8B%E5%8A%A1%E5%B0%8F%E7%BB%93/"/>
     <url>/2020/11/30/%E4%BA%8B%E5%8A%A1%E5%B0%8F%E7%BB%93/</url>

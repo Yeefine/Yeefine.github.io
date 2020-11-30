@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="Yeefine">
   <meta name="keywords" content="">
-  <title>事务小结 - Yeefine&#39;s Blog</title>
+  <title>朴素贝叶斯实现文本数据的分类与分析 - Yeefine&#39;s Blog</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 
@@ -160,8 +160,8 @@
               
   <div class="mt-3 post-meta">
     <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-    <time datetime="2020-11-30 16:50" pubdate>
-      2020年11月30日 下午
+    <time datetime="2020-11-30 22:31" pubdate>
+      2020年11月30日 晚上
     </time>
   </div>
 
@@ -171,7 +171,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      584 字
+      392 字
     </span>
   
 
@@ -181,7 +181,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      6
+      4
        分钟
     </span>
   
@@ -211,84 +211,38 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto" id="post">
             <!-- SEO header -->
-            <h1 style="display: none">事务小结</h1>
+            <h1 style="display: none">朴素贝叶斯实现文本数据的分类与分析</h1>
             
             <div class="markdown-body" id="post-body">
-              <h3 id="1-事物的基本介绍："><a href="#1-事物的基本介绍：" class="headerlink" title="1. 事物的基本介绍："></a>1. 事物的基本介绍：</h3><h4 id="1-概念："><a href="#1-概念：" class="headerlink" title="1. 概念："></a>1. 概念：</h4><p>​    如果一个包含多个步骤的业务操作，被事务管理，那么这些操作要么同时成功，要么同时失败。</p>
-<h4 id="2-操作："><a href="#2-操作：" class="headerlink" title="2. 操作："></a>2. 操作：</h4><ol>
-<li>开启事务： start transaction;</li>
-<li>回滚： rollback;</li>
-<li>提交： commit;</li>
-</ol>
-<h4 id="3-MySQL数据库中事务默认自动提交"><a href="#3-MySQL数据库中事务默认自动提交" class="headerlink" title="3. MySQL数据库中事务默认自动提交"></a>3. MySQL数据库中事务默认自动提交</h4><ul>
-<li><p>事务提交的两种方式：</p>
-<ul>
-<li>自动提交：<ul>
-<li>mysql就是自动提交的</li>
-<li>一条DML（增删改）语句会自动提交一次事务</li>
-</ul>
-</li>
-<li>手动提交：<ul>
-<li>Oracle数据库默认是手动提交事务</li>
-<li>需要先开启事务，再提交</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>修改事务的默认提交方式：</p>
-<ul>
-<li>查看事务的默认提交方式 ：SELECT&ensp;@@autocommit;&emsp;—1&ensp;代表自动提交&emsp;0&ensp;代表手动提交</li>
-<li>修改默认提交方式：set @@autocommit = 0;</li>
-</ul>
-</li>
-</ul>
-<h3 id="2-事务的四大特性（ACID-："><a href="#2-事务的四大特性（ACID-：" class="headerlink" title="2. 事务的四大特性（ACID)："></a>2. 事务的四大特性（ACID)：</h3><p><strong>1. 原子性(Atomicity)：是不可分割的最小操作单位，要么同时成功，要么同时失败。</strong></p>
-<p><strong>2. 持久性(Consistency)：当事务提交或回滚后，数据库会持久化的保存数据。</strong></p>
-<p><strong>3. 隔离性(Isolation)：多个事务之间，相互独立。</strong></p>
-<p><strong>4. 一致性(Durability)：事务操作前后，数据总量不变。</strong></p>
-<h3 id="3-事物的隔离级别（了解）"><a href="#3-事物的隔离级别（了解）" class="headerlink" title="3. 事物的隔离级别（了解）"></a>3. 事物的隔离级别（了解）</h3><ul>
-<li><p>概念：多个事务之间隔离的，相互独立的。但是如果多个事务操作同一批数据，则会引发一些问题，设置不同的隔离级别就可以解决这些问题。</p>
-</li>
-<li><p>存在问题：</p>
+              <p>关于实现朴素贝叶斯算法的原理，<a target="_blank" rel="noopener" href="https://www.cnblogs.com/hapjin/articles/8119797.html">参考于此</a>。</p>
+<p>利用朴素贝叶斯算法实现对文本的数据挖掘，主要包括：</p>
 <ol>
-<li>脏读：一个事务，读取到另一个事务中没有提交的数据</li>
-<li>不可重复读（虚读）：在同一个事务中，两次读取到的数据不一样</li>
-<li>幻读：一个事务操作（DML）数据表中所有记录，另一个事务添加了一条数据，则第一个事务查询不到自己的修改。</li>
+<li>语料库的构建，主要包括利用爬虫收集Web文档等。</li>
+<li>语料库的数据预处理，包括文档建模，如去噪，分词，建立数据字典。</li>
+<li>自行实现朴素贝叶斯，训练文本分类器。</li>
+<li>对测试集的文本进行分类</li>
+<li>对测试集的分类结果利用正确率和召回率进行分析评价。</li>
 </ol>
-</li>
-<li><p>隔离级别：</p>
+<h4 id="数据预处理"><a href="#数据预处理" class="headerlink" title="数据预处理"></a>数据预处理</h4><ol>
+<li>爬虫技术：</li>
+</ol>
+<p>依赖python requests库：requests可以支持HTTP特性，是python中最常用的http客户端库。  </p>
+<p>从环球网、新浪网、搜狐网等大型门户网站上爬取得到的原始数据如下图所示。文本数据所属类别分别包括：动漫、汽车、娱乐、财经、游戏、健康、历史、军事、运动、科技，共十大类。总体数据量共一百万条。</p>
+<p><img src="https://raw.githubusercontent.com/Yeefine/picBed/master/20201130232028.png" srcset="/img/loading.gif" alt=""></p>
 <ol>
-<li><code>read uncommited</code>：读未提交<ul>
-<li>产生的问题：脏读、不可重复读、幻读</li>
-</ul>
-</li>
-<li><code>read commited</code>：读已提交&emsp;（Oracle）<ul>
-<li>产生的问题：不可重复读、幻读</li>
-</ul>
-</li>
-<li><code>repeatable read</code>：可重复读&emsp;（MySQL默认）<ul>
-<li>产生的问题：幻读</li>
-</ul>
-</li>
-<li><code>serializable</code>：串行化<ul>
-<li>可以解决所有的问题</li>
-</ul>
-</li>
+<li>对爬取到的数据进行分词  </li>
 </ol>
-<ul>
-<li>注意：隔离级别从小到大安全性越来越高，但是效率越来越低</li>
-<li>数据库查询隔离级别：<ul>
-<li><code>select @@tx_isolation;</code></li>
-</ul>
-</li>
-<li>数据库涉资隔离级别：<ul>
-<li><code>set global transaction isolation level 级别字符串;</code></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-
+<p>使用jieba分词库将所有句子分成词组的形式，再通过停用词表过滤过滤掉所有的停用词和字符。得到如下文本数据如下图所示。</p>
+<p><img src="https://raw.githubusercontent.com/Yeefine/picBed/master/20201130232158.png" srcset="/img/loading.gif" alt=""></p>
+<ol>
+<li>生成词袋</li>
+</ol>
+<p>再通过使用<code>TF_IDF</code>技术，贝叶斯算法需要保留按照分值排序前40000个词汇，获得经过<code>TF_IDF</code>处理后的词汇表。  </p>
+<p><img src="https://raw.githubusercontent.com/Yeefine/picBed/master/20201130232356.png" srcset="/img/loading.gif" alt=""></p>
+<h4 id="实验结果"><a href="#实验结果" class="headerlink" title="实验结果"></a>实验结果</h4><p>对于50w条测试集的测试结果展示：</p>
+<p><img src="https://raw.githubusercontent.com/Yeefine/picBed/master/20201130225901.png" srcset="/img/loading.gif" style="zoom: 50%;" /></p>
+<p><img src="https://raw.githubusercontent.com/Yeefine/picBed/master/20201130225937.png" srcset="/img/loading.gif" style="zoom: 67%;" /></p>
+<h5 id="程序使用数据集以及具体实现代码，点击这里"><a href="#程序使用数据集以及具体实现代码，点击这里" class="headerlink" title="程序使用数据集以及具体实现代码，点击这里"></a>程序使用数据集以及具体实现代码，<a target="_blank" rel="noopener" href="https://github.com/Yeefine/DM_DW_Exercise">点击这里</a></h5>
             </div>
             <hr>
             <div>
@@ -297,7 +251,7 @@
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>
+                      <a class="hover-with-bg" href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">机器学习</a>
                     
                   </div>
                 
@@ -305,7 +259,7 @@
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/%E4%BA%8B%E5%8A%A1/">事务</a>
+                      <a class="hover-with-bg" href="/tags/%E6%9C%B4%E7%B4%A0%E8%B4%9D%E5%8F%B6%E6%96%AF/">朴素贝叶斯</a>
                     
                   </div>
                 
@@ -318,18 +272,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2020/11/30/%E6%9C%B4%E7%B4%A0%E8%B4%9D%E5%8F%B6%E6%96%AF%E5%AE%9E%E7%8E%B0%E6%96%87%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%9A%84%E5%88%86%E7%B1%BB%E4%B8%8E%E5%88%86%E6%9E%90/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">朴素贝叶斯实现文本数据的分类与分析</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2020/11/29/%E8%8C%83%E5%BC%8F%E5%B0%8F%E7%BB%93/">
-                        <span class="hidden-mobile">范式小结</span>
+                      <a href="/2020/11/30/%E4%BA%8B%E5%8A%A1%E5%B0%8F%E7%BB%93/">
+                        <span class="hidden-mobile">事务小结</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -494,7 +442,7 @@
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "事务小结&nbsp;",
+        "朴素贝叶斯实现文本数据的分类与分析&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,
