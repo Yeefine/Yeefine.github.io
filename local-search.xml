@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>快速幂模板</title>
+    <link href="/2021/02/06/%E5%BF%AB%E9%80%9F%E5%B9%82%E6%A8%A1%E6%9D%BF/"/>
+    <url>/2021/02/06/%E5%BF%AB%E9%80%9F%E5%B9%82%E6%A8%A1%E6%9D%BF/</url>
+    
+    <content type="html"><![CDATA[<h2 id="快速幂"><a href="#快速幂" class="headerlink" title="快速幂"></a>快速幂</h2><p>快速幂算法能帮我们算出指数非常大的幂，传统的求幂算法在指数n非常大的时候，时间复杂度会非常高。</p><p>快速幂算法的核心思想就是每一步都把指数分成两半，二相应的底数做平方运算。这样指数会不断变小，从而所需要执行的循环次数也变小。</p><h4 id="模板"><a href="#模板" class="headerlink" title="模板"></a>模板</h4><pre><code class="hljs c++"><span class="hljs-keyword">typedef</span> <span class="hljs-keyword">long</span> <span class="hljs-keyword">long</span> LL;<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">qmi</span><span class="hljs-params">(<span class="hljs-keyword">int</span> a, <span class="hljs-keyword">int</span> b, <span class="hljs-keyword">int</span> p)</span> </span>&#123;<span class="hljs-comment">// a为底数，b为指数，p为模值</span><span class="hljs-keyword">int</span> res = <span class="hljs-number">1</span> % p;<span class="hljs-comment">// p=1时，任何数模1都为0</span><span class="hljs-keyword">while</span> (b) &#123;<span class="hljs-keyword">if</span> (b &amp; <span class="hljs-number">1</span>)res = (LL)res * a % p;b &gt;&gt;= <span class="hljs-number">1</span>;a = (LL)a * a % p;&#125;    <span class="hljs-keyword">return</span> res;&#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>数据结构与算法</category>
+      
+      <category>总结</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>快速幂</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>质数筛选算法——埃式筛法</title>
     <link href="/2020/12/03/%E8%B4%A8%E6%95%B0%E7%AD%9B%E9%80%89%E7%AE%97%E6%B3%95%E2%80%94%E2%80%94%E5%9F%83%E5%BC%8F%E7%AD%9B%E6%B3%95/"/>
     <url>/2020/12/03/%E8%B4%A8%E6%95%B0%E7%AD%9B%E9%80%89%E7%AE%97%E6%B3%95%E2%80%94%E2%80%94%E5%9F%83%E5%BC%8F%E7%AD%9B%E6%B3%95/</url>
