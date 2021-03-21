@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="Yeefine">
   <meta name="keywords" content="">
-  <title>继承中方法的覆盖重写 - Yeefine&#39;s Blog</title>
+  <title>Http网络协议包 - Yeefine&#39;s Blog</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 
@@ -160,8 +160,8 @@
               
   <div class="mt-3 post-meta">
     <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-    <time datetime="2020-10-14 22:49" pubdate>
-      2020年10月14日 晚上
+    <time datetime="2021-03-21 22:14" pubdate>
+      2021年3月21日 晚上
     </time>
   </div>
 
@@ -171,7 +171,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      284 字
+      700 字
     </span>
   
 
@@ -181,7 +181,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      3
+      7
        分钟
     </span>
   
@@ -211,28 +211,75 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto" id="post">
             <!-- SEO header -->
-            <h1 style="display: none">继承中方法的覆盖重写</h1>
+            <h1 style="display: none">Http网络协议包</h1>
             
             <div class="markdown-body" id="post-body">
-              <h3 id="重写（Override）"><a href="#重写（Override）" class="headerlink" title="重写（Override）"></a>重写（Override）</h3><p>概念：在继承关系中，方法的名称一样，参数列表<strong>也一样</strong>。建议使用覆盖、覆写的叫法，不易混淆。</p>
-<h4 id="重写与重载的区别："><a href="#重写与重载的区别：" class="headerlink" title="重写与重载的区别："></a>重写与重载的区别：</h4><ul>
-<li>重写（Override）：方法的名称一样，参数列表<strong>也一样</strong>。覆盖、覆写。</li>
-<li>重载（Overload）：方法的名称一样，参数列表<strong>不一样</strong>。详情请见<a target="_blank" rel="noopener" href="https://yeefine.github.io/2020/07/22/%E6%96%B9%E6%B3%95%E9%87%8D%E8%BD%BD/">方法重载</a></li>
+              <h3 id="Http网络协议包"><a href="#Http网络协议包" class="headerlink" title="Http网络协议包"></a>Http网络协议包</h3><h4 id="一、网络协议包："><a href="#一、网络协议包：" class="headerlink" title="一、网络协议包："></a>一、网络协议包：</h4><ul>
+<li><p>在网络中传递信息都是以<strong>二进制</strong>形式存在的。</p>
+</li>
+<li><p>接收方<strong>浏览器/服务器</strong>在接收信息后，要做第一件事就是将<strong>二进制数据</strong>进行编译【文字、图片、视频、命令】</p>
+</li>
+<li><p>传递信息数据量往往比较巨大，导致接收方很难在一组连续二进制得到对应数据。</p>
+</li>
+<li><p>网络协议包是一组有规律的二进制数据，在这组数据存在了固定空间，每一个空间专门存放特定信息，这样接受方在接收网络协议包之后就可以到固定空间得到对应信息，网络协议包出现极大降低了接收方对接受二进制数据的编译难度。</p>
+</li>
 </ul>
-<h4 id="方法覆盖重写的注意事项："><a href="#方法覆盖重写的注意事项：" class="headerlink" title="方法覆盖重写的注意事项："></a>方法覆盖重写的注意事项：</h4><ol>
-<li><p>必须保证父子类之间的方法名称相同，参数列表也相同。</p>
-<p>@Override：写在方法前面，用来检测是不是有效的正确覆盖方法。</p>
-<p>这个注解就算不写，只要满足要求，也是正确的方法覆盖重写。</p>
+<h4 id="二、常见网络协议："><a href="#二、常见网络协议：" class="headerlink" title="二、常见网络协议："></a>二、常见网络协议：</h4><ul>
+<li><p><strong>FTP</strong>网络协议包</p>
 </li>
-<li><p>子类方法的返回值必须<strong>小于等于</strong>父类方法的返回值范围。</p>
-<p>小扩展提示：java.lang.Object类是所有类的公共最高父类（祖宗类），java.lang.String就是Object的子类。</p>
+<li><p><strong>Http</strong>网络协议包</p>
 </li>
-<li><p>子类方法的权限必须<strong>大于等于</strong>父类方法的权限修饰符。</p>
-<p>小扩展提示：public &gt; protected &gt; (default) &gt; private</p>
-<p>备注：（default）不是关键字default，而是什么都不写，留空。</p>
+</ul>
+<h4 id="三、Http网络协议包："><a href="#三、Http网络协议包：" class="headerlink" title="三、Http网络协议包："></a>三、Http网络协议包：</h4><ul>
+<li>在基于<code>B/S</code>结构下互联网通信过程中，所有在网络中传递信息都是保存在<strong>Http</strong>网络协议包</li>
+<li>分类：<ul>
+<li><strong>Http</strong>请求协议包</li>
+<li><strong>Http</strong>相应协议包</li>
+</ul>
 </li>
-</ol>
-
+</ul>
+<h4 id="四、Http请求协议包与Http响应协议包"><a href="#四、Http请求协议包与Http响应协议包" class="headerlink" title="四、Http请求协议包与Http响应协议包"></a>四、Http请求协议包与Http响应协议包</h4><ul>
+<li><p><strong>Http</strong>请求协议包：</p>
+<p>在浏览器准备发送请求时，负责创建一个<strong>Http</strong>请求协议包，浏览器将请求信息以二进制形式保存在<strong>Http</strong>请求协议包各个空间中，由浏览器负责将<strong>Http</strong>请求协议包推送到指定服务端计算机</p>
+</li>
+<li><p><strong>Http</strong>响应协议包：</p>
+<p><strong>Http</strong>服务器在定位到被访问的资源文件之后，负责创建一个<strong>Http</strong>响应协议包，<strong>Http</strong>服务器将定位文件内容或文件命令，并以二进制形式写入到<strong>Http</strong>响应协议包各个空间中，由<strong>Http</strong>服务器负责将<strong>Http</strong>响应协议包推送回发起请求的浏览器上。</p>
+</li>
+</ul>
+<h4 id="五、Http请求协议包内部空间（重点）"><a href="#五、Http请求协议包内部空间（重点）" class="headerlink" title="五、Http请求协议包内部空间（重点）"></a>五、Http请求协议包内部空间（重点）</h4><ul>
+<li><p>按照自上而下划分，分为4个空间 </p>
+</li>
+<li><p>空间划分</p>
+<ul>
+<li><p>请求行：[</p>
+<p>​                    url：请求地址(<a target="_blank" rel="noopener" href="http://192.168.100.2:8080/index.html">http://192.168.100.2:8080/index.html</a>)</p>
+<p>​                    method：请求方式（POST / GET）                </p>
+<p>​                ]</p>
+</li>
+<li><p>请求头：[ 请求参数信息【GET】]</p>
+</li>
+<li><p>空白行：[ 没有任何内容，起到隔离作用 ]</p>
+</li>
+<li><p>请求体：[  请求参数信息【POST】 ]</p>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="六、Http响应协议包内部结构（重点）"><a href="#六、Http响应协议包内部结构（重点）" class="headerlink" title="六、Http响应协议包内部结构（重点）"></a>六、Http响应协议包内部结构（重点）</h4><ul>
+<li><p>按照自上而下划分，分为4个空间</p>
+</li>
+<li><p>空间划分：</p>
+<ul>
+<li>状态行：[ Http状态码 ]</li>
+<li><p>响应头：[ content-type：指定浏览器采用对应编译器，对响应体二进制数据进行解析]</p>
+</li>
+<li><p>空白行：[ 没有任何内容，起到隔离作用 ]</p>
+</li>
+<li>响应体：[ 可能被访问静态资源文件内容、可能被访问的静态资源文件命令、可能被访问的动态资源文件运行结果，都是以二进制形式]</li>
+</ul>
+</li>
+</ul>
+<h3 id=""><a href="#" class="headerlink" title=" "></a> </h3>
             </div>
             <hr>
             <div>
@@ -241,7 +288,7 @@
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/categories/Java/">Java</a>
+                      <a class="hover-with-bg" href="/categories/%E6%80%BB%E7%BB%93/">总结</a>
                     
                   </div>
                 
@@ -249,9 +296,9 @@
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/%E7%BB%A7%E6%89%BF/">继承</a>
+                      <a class="hover-with-bg" href="/tags/JavaWeb/">JavaWeb</a>
                     
-                      <a class="hover-with-bg" href="/tags/Override/">Override</a>
+                      <a class="hover-with-bg" href="/tags/Http/">Http</a>
                     
                   </div>
                 
@@ -264,9 +311,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2020/10/16/%E7%88%B6%E5%AD%90%E7%B1%BB%E6%9E%84%E9%80%A0%E6%96%B9%E6%B3%95%E7%9A%84%E8%AE%BF%E9%97%AE%E7%89%B9%E7%82%B9/">
+                      <a href="/2021/03/21/Servlet%E8%A7%84%E8%8C%83/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">父子类构造方法的访问特点</span>
+                        <span class="hidden-mobile">Servlet规范</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -274,8 +321,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2020/10/14/%E7%BB%A7%E6%89%BF%E4%B8%AD%E6%88%90%E5%91%98%E5%8F%98%E9%87%8F%E7%9A%84%E8%AE%BF%E9%97%AE%E7%89%B9%E7%82%B9/">
-                        <span class="hidden-mobile">继承中成员变量的访问特点</span>
+                      <a href="/2021/03/21/%E4%BA%92%E8%81%94%E7%BD%91%E9%80%9A%E4%BF%A1%E6%B5%81%E7%A8%8B%E5%9B%BE/">
+                        <span class="hidden-mobile">互联网通信流程图</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -440,7 +487,7 @@
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "继承中方法的覆盖重写&nbsp;",
+        "Http网络协议包&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,
