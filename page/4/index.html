@@ -176,6 +176,159 @@
     
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
+        <a href="/2020/07/06/%E6%BB%9A%E5%8A%A8%E6%95%B0%E7%BB%84/">滚动数组</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2020/07/06/%E6%BB%9A%E5%8A%A8%E6%95%B0%E7%BB%84/">
+          
+          
+            
+          
+          本文主要介绍一个十分实用的小技巧——滚动数组。它常被用来完成常数优化和减少代码量，且滚动数组思想是一种常见的动态规划优化方法。  
+假设有如下状态转移方程：  
+&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; dp[i][j] = max(dp[i-1][j+1], dp[i-1][j-1]);​
+按照该状态转移
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2020-07-06 19:29" pubdate>
+              2020-07-06
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/">数据结构与算法</a>
+            
+              <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E6%80%BB%E7%BB%93/">总结</a>
+            
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        <a href="/2020/06/27/41-%E7%BC%BA%E5%A4%B1%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E6%AD%A3%E6%95%B0/">41.缺失的第一个正数</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2020/06/27/41-%E7%BC%BA%E5%A4%B1%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E6%AD%A3%E6%95%B0/">
+          
+          
+            
+          
+          题目描述给你一个未排序的整数数组，请你找出其中没有出现的最小的正整数。   
+提示：你的算法的时间复杂度应为O(n)，并且只能使用常数级别的额外空间。  
+前言若不考虑时空复杂度，可以使用辅助空间记录出现的数字的方式实现，亦或者从1开始暴力比较每一个数组元素来实现。而按照题目中的要求，则需要尝试利用题目所给出的数组空间来协助完成。  
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2020-06-27 17:59" pubdate>
+              2020-06-27
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/">数据结构与算法</a>
+            
+              <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/LeetCode/">LeetCode</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/C/">C++</a>
+            
+              <a href="/tags/%E5%93%88%E5%B8%8C/">哈希</a>
+            
+              <a href="/tags/%E6%95%B0%E7%BB%84/">数组</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        <a href="/2020/06/21/5441-%E4%BF%9D%E8%AF%81%E6%96%87%E4%BB%B6%E5%90%8D%E5%94%AF%E4%B8%80/">5441.保证文件名唯一</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2020/06/21/5441-%E4%BF%9D%E8%AF%81%E6%96%87%E4%BB%B6%E5%90%8D%E5%94%AF%E4%B8%80/">
+          
+          
+            
+          
+          题目描述给你一个长度为n的字符串数组names。你将会在文件系统中创建n个文件夹：在第i分钟，新建名为names[i]的文件夹。  
+由于两个文件不能共享相同的文件名，因此如果新建文件夹使用的文件名已经被占用，系统会以(k)的形式为新文件夹的文件名添加后缀，其中k是能保证文件名唯一的最小正整数。  
+返回长度为n的字符串数组，其中ans[i]是创建第i个文件夹时系统分配给该文件夹的实际名称。  
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2020-06-21 18:11" pubdate>
+              2020-06-21
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/">数据结构与算法</a>
+            
+              <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/LeetCode/">LeetCode</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/C/">C++</a>
+            
+              <a href="/tags/%E5%93%88%E5%B8%8C/">哈希</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
         <a href="/2020/06/17/1014-%E6%9C%80%E4%BD%B3%E8%A7%82%E5%85%89%E7%BB%84%E5%90%88/">1014.最佳观光组合</a>
       </h1>
 

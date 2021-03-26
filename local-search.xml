@@ -4,6 +4,83 @@
   
   
   <entry>
+    <title>MVC开发规则</title>
+    <link href="/2021/03/26/MVC%E5%BC%80%E5%8F%91%E8%A7%84%E5%88%99/"/>
+    <url>/2021/03/26/MVC%E5%BC%80%E5%8F%91%E8%A7%84%E5%88%99/</url>
+    
+    <content type="html"><![CDATA[<h4 id="一、介绍"><a href="#一、介绍" class="headerlink" title="一、介绍"></a>一、介绍</h4><ol><li>MVC开发规则制定了互联网通信开发过程中必须出现的角色有哪些</li><li>MVC开发规则制定了互联网通信开发过程中必须出现的角色所担负的职责</li><li>MVC开发规则制定了互联网通信开发过程中必须出现的角色的出场顺序</li></ol><h4 id="二、角色"><a href="#二、角色" class="headerlink" title="二、角色"></a>二、角色</h4><ul><li>DAO对象：DAO对象提供某张表文件的操作细节，降低对表文件的操作难度。避免反复开发表文件操作的代码，提高代码的复用性</li><li>Service对象：服务对象，提供【业务】的具体解决方案。service对象一个方法指定一个业务的解决方案，避免业务开发重复性开发行为，提供复用性。网站每一个业务都有一个独立标准解决方案</li></ul><h4 id="三、业务"><a href="#三、业务" class="headerlink" title="三、业务"></a>三、业务</h4><p>​    浏览器向Http服务器发送请求</p><p>​    用户向网站发送请求</p><p>​    <strong>举例: </strong>张三用户发送请求，要求在服务端实现将张三账户3000元转给李四账户</p><p>​    业务处理方案：</p><ol><li>判断”张三“是否是当前系统中用户</li><li>判断“李四”是否是当前系统中用户</li><li>读取“张三账户余额”，判断余额是否充足</li><li>读取“李四账户余额”，背账</li><li>更新“张三账户余额 - 3000”</li><li>更新“李四账户余额 + 3000”</li></ol><h4 id="四、业务特征"><a href="#四、业务特征" class="headerlink" title="四、业务特征"></a>四、业务特征</h4><ol><li>真实业务场景中，一个业务往往包含多个分支任务，因此解决业务开发工作量往往比较巨大。</li><li>真实业务场景中，只有所有分支任务都能顺利成功解决，才可以认为当前业务处理成功。</li></ol><h4 id="五、MVC开发规则-—-互联网通信开发过程中必须出现角色有哪些"><a href="#五、MVC开发规则-—-互联网通信开发过程中必须出现角色有哪些" class="headerlink" title="五、MVC开发规则 — 互联网通信开发过程中必须出现角色有哪些"></a>五、MVC开发规则 — 互联网通信开发过程中必须出现角色有哪些</h4><p>一次互联网开发过程，必须出现角色有三个：</p><ul><li>controller object：控制层对象（Servlet对象）</li><li>model object：业务模型对象（Service对象）</li><li>view object：视图层对象（jsp or HttpServletResponse）</li></ul><h4 id="六、MVC开发规则-—-互联网通信开发过程中必须出现角色负担的职责"><a href="#六、MVC开发规则-—-互联网通信开发过程中必须出现角色负担的职责" class="headerlink" title="六、MVC开发规则 — 互联网通信开发过程中必须出现角色负担的职责"></a>六、MVC开发规则 — 互联网通信开发过程中必须出现角色负担的职责</h4><ul><li><p><strong>C（servlet对象）</strong></p><ol><li>【可以】调用【请求对象】读取【请求包】参数信息</li><li>【必须】调用【Service对象】处理业务</li><li>【必须】调用【视图层对象】将结果写入到响应体</li></ol></li><li><p><strong>M（service对象）</strong></p><ol><li>处理业务中所有分支任务</li><li>根据分支任务执行情况判断业务是否处理成功</li><li>必须通过return将处理结果返回给【控制层对象】</li></ol></li><li><p><strong>V（jsp / HttpServletResponse)</strong></p><ol><li>禁止参与业务处理</li><li>唯一的任务是将处理结果写入到响应体中</li></ol></li></ul><h4 id="七、互联网通信开发过程中必须出现角色的出场顺序"><a href="#七、互联网通信开发过程中必须出现角色的出场顺序" class="headerlink" title="七、互联网通信开发过程中必须出现角色的出场顺序"></a>七、互联网通信开发过程中必须出现角色的出场顺序</h4><p><img src="https://raw.githubusercontent.com/Yeefine/picBed/master/20210326225823.png" alt=""></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>总结</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>JavaWeb</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>EL表达式</title>
+    <link href="/2021/03/26/EL%E8%A1%A8%E8%BE%BE%E5%BC%8F/"/>
+    <url>/2021/03/26/EL%E8%A1%A8%E8%BE%BE%E5%BC%8F/</url>
+    
+    <content type="html"><![CDATA[<h4 id="一、EL表达式"><a href="#一、EL表达式" class="headerlink" title="一、EL表达式"></a>一、EL表达式</h4><ul><li>命令格式：<code>$&#123;作用域对象别名.共享数据&#125;</code></li><li>命令作用：<ul><li>EL表达式是EL工具包提供的一种特殊的命令格式【表达式命令格式】</li><li>EL表达式在JSP文件上使用</li><li>负责在JSP文件上从作用域对象读取指定的共享数据并输出到响应体</li></ul></li></ul><h4 id="二、EL表达式-—-作用域对象别名"><a href="#二、EL表达式-—-作用域对象别名" class="headerlink" title="二、EL表达式 — 作用域对象别名"></a>二、EL表达式 — 作用域对象别名</h4><ul><li><p>JSP文件可以使用的作用域对象</p><ul><li><code>ServletContext</code> — <code>application</code>：全局作用域对象</li><li><code>HttpSession</code> — <code>session</code>：会话作用域对象</li><li><code>HttpServletRequest</code> — <code>request</code>：请求作用域对象</li><li><code>PageContext</code> — <code>pageContext</code>：当前页作用域对象。这是JSP文件独有的作用域对象，Servlet中不存在。在当前页作用域对象存放的共享数据仅能在当前JSP文件中使用，不能共享给其他Servlet或者其他JSP文件。真实开发过程中，主要用于JSTL标签与JSP文件之间数据共享（<code>JSTL --&gt; pageContext --&gt; JSP</code>）</li></ul></li><li><p>EL表达式提供作用域对象别名</p><p>|     JSP     |            EL表达式            |<br>| :————-: | :——————————————: |<br>| application | ${applicationScope.共享数据名} |<br>|   session   |   ${sessionScope.共享数据名}   |<br>|   request   |   ${requestScope.共享数据名}   |<br>| pageContext |    ${pageScope.共享数据名}     |</p></li></ul><h4 id="三、EL表达式将引用对象属性写入到响应体"><a href="#三、EL表达式将引用对象属性写入到响应体" class="headerlink" title="三、EL表达式将引用对象属性写入到响应体"></a>三、EL表达式将引用对象属性写入到响应体</h4><ul><li>命令格式：<code>$&#123;作用域对象别名.共享数据名.属性名&#125;</code></li><li>命令作用：从作用域对象读取指定共享数据关联的引用对象的属性值，并自动将属性的结果写入到响应体</li><li>属性名：一定要与引用类型属性名完全一致（大小写）</li><li>EL表达式没有提供遍历集合的方法，因此无法从作用域对象中读取集合内容输出</li></ul><h4 id="四、EL表达式简化版"><a href="#四、EL表达式简化版" class="headerlink" title="四、EL表达式简化版"></a>四、EL表达式简化版</h4><ul><li>命令格式：<code>$&#123;共享数据名&#125;</code></li><li>命令作用：EL表达式允许开发人员开发时省略作用域对象别名</li><li><p>工作原理：EL表达式简化版由于没有指定作用域对象，所以在执行时采用【猜】算法。按照<code>pageContext ---&gt; request ---&gt; session ---&gt; application</code>的顺序依次查找，若没找到，返回<code>null</code></p></li><li><p>存在隐患：容易降低程序执行速度；容易导致数据定位错误</p></li><li>应用场景：设计目的，就是简化从pageContext读取共享数据并输出难度</li><li>EL表达式简化版尽管存在很多隐患，但是在实际开发过程中，开发人员为了节省时间，一般都使用简化版，拒接使用标准版</li></ul><h4 id="五、EL表达式-—-支持运算表达式"><a href="#五、EL表达式-—-支持运算表达式" class="headerlink" title="五、EL表达式 — 支持运算表达式"></a>五、EL表达式 — 支持运算表达式</h4><ul><li><p>前提：在JSP文件中，有时需要将读取的共享数据进行一番运算之后，将运算结果写入到响应体</p></li><li><p>运算表达式：</p><ul><li>数学运算</li><li><p>关系运算：<code>&gt;(gt)</code>、 <code>&gt;=(ge)</code> 、 <code>==(eq)</code>、  <code>&lt;(lt)</code>、  <code>&lt;=(le)</code>、  <code>!=(!=)</code></p></li><li><p>逻辑运算：<code>&amp;&amp;</code>、<code>||</code>、<code>!</code></p></li></ul></li></ul><h4 id="六、EL表达式提供内置对象"><a href="#六、EL表达式提供内置对象" class="headerlink" title="六、EL表达式提供内置对象"></a>六、EL表达式提供内置对象</h4><ol><li><p>命令格式：<code>$&#123;param.请求参数名&#125;</code></p><p>命令作用：通过请求对象读取当前请求包中的请求参数内容，并将请求参数内容写入到响应体</p><p>代替命令：<code>request.getParameter(请求参数名);</code></p></li><li><p>命令格式：<code>$&#123;paramValues.请求参数名[下标]&#125;</code></p><p>命令作用：如果浏览器发送的请求参数是[一个请求参数关联多个值]，此时可以通过paraValues读取请求参数下指定位置的值，并写入到响应体</p><p>代替命令：<code>request.getParameterValues(请求参数名);</code></p></li></ol><h4 id="七、EL表达式常见异常"><a href="#七、EL表达式常见异常" class="headerlink" title="七、EL表达式常见异常"></a>七、EL表达式常见异常</h4><ul><li><code>javax.el.PropertyNotFoundException</code>：在对象中没有找到指定属性</li></ul>]]></content>
+    
+    
+    <categories>
+      
+      <category>总结</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>JSP</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>JSP小结</title>
+    <link href="/2021/03/26/JSP%E5%B0%8F%E7%BB%93/"/>
+    <url>/2021/03/26/JSP%E5%B0%8F%E7%BB%93/</url>
+    
+    <content type="html"><![CDATA[<p>JSP文件的作用：代替响应对象，将Servlet中doGet/doPost的执行结果写入到响应体。</p><h3 id="Servlet与JSP"><a href="#Servlet与JSP" class="headerlink" title="Servlet与JSP"></a>Servlet与JSP</h3><h4 id="一、Servlet与JSP分工"><a href="#一、Servlet与JSP分工" class="headerlink" title="一、Servlet与JSP分工"></a>一、Servlet与JSP分工</h4><ul><li>Servlet：负责处理业务并得到处理结果（大厨）</li><li>JSP：不负责业务处理，主要任务将Servlet中处理结果写入到响应体（传菜员）</li></ul><h4 id="二、Servlet与JSP之间调用关系"><a href="#二、Servlet与JSP之间调用关系" class="headerlink" title="二、Servlet与JSP之间调用关系"></a>二、Servlet与JSP之间调用关系</h4><p>​    Serlvet工作完毕后，一般通过<strong>请求转发方式</strong>向Tomcat申请调用JSP</p><h4 id="三、Servlet与JSP之间如何实现数据共享"><a href="#三、Servlet与JSP之间如何实现数据共享" class="headerlink" title="三、Servlet与JSP之间如何实现数据共享"></a>三、Servlet与JSP之间如何实现数据共享</h4><ul><li>Servlet将处理结果添加到【请求作用域对象】</li><li>JSP文件在运行时从【请求作用域对象】得到处理结果</li></ul><hr><h3 id="JSP文件运行原理"><a href="#JSP文件运行原理" class="headerlink" title="JSP文件运行原理"></a>JSP文件运行原理</h3><h4 id="一、Http服务器调用JSP文件步骤"><a href="#一、Http服务器调用JSP文件步骤" class="headerlink" title="一、Http服务器调用JSP文件步骤"></a>一、Http服务器调用JSP文件步骤</h4><ol><li>Http服务器将JSP文件内容【编辑】为一个Servlet接口实现类（.java）</li><li>Http服务器将Servlet接口实现类【编译】为class文件（.class）</li><li>Http服务器负责创建这个class的实例对象，这个实例对象就是Servlet实例对象</li><li>Http服务器通过Servlet实例对象调用jsp_service方法，将jsp文件内容写入到响应体</li></ol><h4 id="二、Http服务器【编辑】与【编译】JSP文件位置"><a href="#二、Http服务器【编辑】与【编译】JSP文件位置" class="headerlink" title="二、Http服务器【编辑】与【编译】JSP文件位置"></a>二、Http服务器【编辑】与【编译】JSP文件位置</h4><p>​    在【work】目录下</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>总结</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>JavaWeb</tag>
+      
+      <tag>JSP</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>Servlet规范</title>
     <link href="/2021/03/21/Servlet%E8%A7%84%E8%8C%83/"/>
     <url>/2021/03/21/Servlet%E8%A7%84%E8%8C%83/</url>
