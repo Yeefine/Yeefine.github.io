@@ -17,10 +17,20 @@
   <meta name="description" content="">
   <meta name="author" content="Yeefine">
   <meta name="keywords" content="">
-  <title>归档 - Yeefine&#39;s Blog</title>
+  <title>AJAX小结 - Yeefine&#39;s Blog</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+  
+
+  
 
 
 <!-- 主题依赖的图标库，不要自行修改 -->
@@ -43,7 +53,7 @@
 
 
 <body>
-  <header style="height: 60vh;">
+  <header style="height: 70vh;">
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand"
@@ -147,6 +157,40 @@
             </span>
 
             
+              
+  <div class="mt-3 post-meta">
+    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+    <time datetime="2021-03-28 20:12" pubdate>
+      2021年3月28日 晚上
+    </time>
+  </div>
+
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      329 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      3
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
           </div>
 
           
@@ -157,43 +201,129 @@
 
   <main>
     
-      <div class="container nopadding-md">
-        <div class="py-5" id="board"
-          >
-          
-          <div class="container">
-            <div class="row">
-              <div class="col-12 col-md-10 m-auto">
-                
-
-<div class="list-group">
-  <p class="h4">共计 38 篇文章</p>
-  <hr>
-  
-    
       
-      <p class="h5">2021</p>
-    
-    <a href="/2021/02/21/MySQL%E5%B0%8F%E7%BB%93/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">MySQL小结</span>
-      <time style="float: right;">02-21</time>
-    </a>
-  
-    
-    <a href="/2021/02/06/%E5%BF%AB%E9%80%9F%E5%B9%82%E6%A8%A1%E6%9D%BF/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">快速幂模板</span>
-      <time style="float: right;">02-06</time>
-    </a>
-  
-</div>
 
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto" id="post">
+            <!-- SEO header -->
+            <h1 style="display: none">AJAX小结</h1>
+            
+            <div class="markdown-body" id="post-body">
+              <h3 id="AJAX"><a href="#AJAX" class="headerlink" title="AJAX"></a>AJAX</h3><h4 id="1-Ajax概念：异步的javascript和json"><a href="#1-Ajax概念：异步的javascript和json" class="headerlink" title="1.Ajax概念：异步的javascript和json"></a>1.Ajax概念：异步的javascript和json</h4><h4 id="2-核心对象XMLHttpRequest"><a href="#2-核心对象XMLHttpRequest" class="headerlink" title="2.核心对象XMLHttpRequest"></a>2.核心对象XMLHttpRequest</h4><ul>
+<li>使用步骤<ol>
+<li>创建异步对象<code>var xmlHttp = new XMLHttpRequest()</code></li>
+<li>绑定事件<code>xmlHttp.onreadystatechange = function() &#123; 获取服务器端返回的数据，更新dom&#125;</code></li>
+<li>初始化请求参数<code>xmlHttp.open(get, url, true)</code></li>
+<li>发送请求<code>xmlHttp.send()</code></li>
+</ol>
+</li>
+<li>属性<ol>
+<li><code>readyState</code>：ajax请求过程中的状态变化。<code>4</code>：表示从服务器返回数据，并处理完成</li>
+<li><code>status</code>：网络通信的状态。<code>200</code>：通信成功，请求成功；<code>404</code>：资源没有找到</li>
+</ol>
+</li>
+<li>异步和同步<ul>
+<li>异步：<code>open(get, url, true)</code>，在send之后执行其他的代码，可以同时执行多个异步请求</li>
+<li>同步：<code>open(get, url, false)</code>，一次只能执行一个异步请求，必须请求处理完成后，才能执行其他的请求处理</li>
+</ul>
+</li>
+</ul>
+<h4 id="3-json的使用"><a href="#3-json的使用" class="headerlink" title="3.json的使用"></a>3.json的使用</h4><ul>
+<li><p>json的优点</p>
+<ul>
+<li>json格式好理解</li>
+<li>json格式数据在多种语言中，比较容易处理。使用java，javascript读写json格式的数据比较容易</li>
+<li>json格式数据占用的空间小，在网络中传输快，用户的体验好。</li>
+</ul>
+</li>
+<li><p>java中的json工具库</p>
+<ul>
+<li><p>gson（google）</p>
+</li>
+<li><p>fastjson：速度快，不是最符合json处理规范的</p>
+</li>
+<li><p>jackson：性能好，规范好</p>
+<pre><code class="hljs javascript">ObjectMapper om = <span class="hljs-keyword">new</span> ObjectMapper();
+<span class="hljs-comment">// writeValueAsString:把参数的java对象转为json格式的字符串</span>
+<span class="hljs-built_in">String</span> json = om.writeValueAsString(p);</code></pre>
+</li>
+<li><p>json-lib：性能差，依赖多</p>
+</li>
+</ul>
+</li>
+</ul>
 
-
-              </div>
             </div>
-          </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E6%80%BB%E7%BB%93/">总结</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/ajax/">ajax</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%89%8D%E7%AB%AF/">前端</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/03/26/MVC%E5%BC%80%E5%8F%91%E8%A7%84%E5%88%99/">
+                        <span class="hidden-mobile">MVC开发规则</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
         </div>
       </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
     
   </main>
 
@@ -297,6 +427,31 @@
 
 
 
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '#post-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
 
 
   <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
@@ -304,7 +459,7 @@
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "归档&nbsp;",
+        "AJAX小结&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,
@@ -319,6 +474,21 @@
 
 
 
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
 
 
   <script  src="/js/local-search.js" ></script>
@@ -332,6 +502,20 @@
   </script>
 
 
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
 
 
 
