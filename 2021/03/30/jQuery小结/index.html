@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="Yeefine">
   <meta name="keywords" content="">
-  <title>AJAX小结 - Yeefine&#39;s Blog</title>
+  <title>jQuery小结 - Yeefine&#39;s Blog</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 
@@ -160,8 +160,8 @@
               
   <div class="mt-3 post-meta">
     <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-    <time datetime="2021-03-28 20:12" pubdate>
-      2021年3月28日 晚上
+    <time datetime="2021-03-30 23:16" pubdate>
+      2021年3月30日 晚上
     </time>
   </div>
 
@@ -171,7 +171,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      329 字
+      903 字
     </span>
   
 
@@ -181,7 +181,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      3
+      10
        分钟
     </span>
   
@@ -211,48 +211,104 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto" id="post">
             <!-- SEO header -->
-            <h1 style="display: none">AJAX小结</h1>
+            <h1 style="display: none">jQuery小结</h1>
             
             <div class="markdown-body" id="post-body">
-              <h3 id="AJAX"><a href="#AJAX" class="headerlink" title="AJAX"></a>AJAX</h3><h4 id="1-Ajax概念：异步的javascript和json"><a href="#1-Ajax概念：异步的javascript和json" class="headerlink" title="1.Ajax概念：异步的javascript和json"></a>1.Ajax概念：异步的javascript和json</h4><h4 id="2-核心对象XMLHttpRequest"><a href="#2-核心对象XMLHttpRequest" class="headerlink" title="2.核心对象XMLHttpRequest"></a>2.核心对象XMLHttpRequest</h4><ul>
-<li>使用步骤<ol>
-<li>创建异步对象<code>var xmlHttp = new XMLHttpRequest()</code></li>
-<li>绑定事件<code>xmlHttp.onreadystatechange = function() &#123; 获取服务器端返回的数据，更新dom&#125;</code></li>
-<li>初始化请求参数<code>xmlHttp.open(get, url, true)</code></li>
-<li>发送请求<code>xmlHttp.send()</code></li>
-</ol>
-</li>
-<li>属性<ol>
-<li><code>readyState</code>：ajax请求过程中的状态变化。<code>4</code>：表示从服务器返回数据，并处理完成</li>
-<li><code>status</code>：网络通信的状态。<code>200</code>：通信成功，请求成功；<code>404</code>：资源没有找到</li>
-</ol>
-</li>
-<li>异步和同步<ul>
-<li>异步：<code>open(get, url, true)</code>，在send之后执行其他的代码，可以同时执行多个异步请求</li>
-<li>同步：<code>open(get, url, false)</code>，一次只能执行一个异步请求，必须请求处理完成后，才能执行其他的请求处理</li>
+              <h4 id="1-什么是jQuery？"><a href="#1-什么是jQuery？" class="headerlink" title="1. 什么是jQuery？"></a>1. 什么是jQuery？</h4><p>​    是一个javascript的库，里面有很多的函数</p>
+<h4 id="2-作用"><a href="#2-作用" class="headerlink" title="2. 作用"></a>2. 作用</h4><p>​    可以操作dom对象，事件处理，动画，ajax</p>
+<h4 id="3-jQuery的优点"><a href="#3-jQuery的优点" class="headerlink" title="3. jQuery的优点"></a>3. jQuery的优点</h4><pre><code>1. 免费，开源的
+
+   2. 比较小巧，压缩的版本只有87k大小；
+   3. 兼容大多数的浏览器
+   4. 文档齐备
+</code></pre><h4 id="4-对象分类"><a href="#4-对象分类" class="headerlink" title="4. 对象分类"></a>4. 对象分类</h4><ul>
+<li>dom对象：使用js语法创建的对象是dom对象，也是js对象。dom对象可以调用dom方法，属性。</li>
+<li>jQuery对象：使用jQuery语法创建的对象，jQuery独享能调用jQuery函数库中的函数或者属性。jQuery对象是数组，数组中的每个元素是dom对象。</li>
 </ul>
-</li>
-</ul>
-<h4 id="3-json的使用"><a href="#3-json的使用" class="headerlink" title="3.json的使用"></a>3.json的使用</h4><ul>
-<li><p>json的优点</p>
+<h4 id="5-选择器"><a href="#5-选择器" class="headerlink" title="5. 选择器"></a>5. 选择器</h4><ul>
+<li>什么是选择器：就是一个字符串，用来定位dom对象的，就是选择页面中dom对象的条件</li>
+<li><p>基本选择器</p>
 <ul>
-<li>json格式好理解</li>
-<li>json格式数据在多种语言中，比较容易处理。使用java，javascript读写json格式的数据比较容易</li>
-<li>json格式数据占用的空间小，在网络中传输快，用户的体验好。</li>
+<li>id选择器：语法<code>$(&quot;#id值&quot;)</code></li>
+<li>class选择器：语法<code>$(&quot;.class名称&quot;)</code></li>
+<li>标签选择器：语法<code>$(&quot;标签名称&quot;)</code></li>
+<li>所有选择器：语法<code>$(&quot;*&quot;)</code></li>
+<li>组合选择器：语法<code>$(&quot;id选择器，class选择器，标签选择器&quot;)</code></li>
 </ul>
 </li>
-<li><p>java中的json工具库</p>
+<li><p>表单选择器</p>
 <ul>
-<li><p>gson（google）</p>
+<li>使用dom对象的type属性定位</li>
+<li>语法：<code>$(&quot;:type属性值&quot;)</code>。例如如果想要定位所有的text，<code>$(&quot;:text&quot;)</code></li>
+</ul>
 </li>
-<li><p>fastjson：速度快，不是最符合json处理规范的</p>
+<li>过滤器：是一个字符串，用来筛选dom对象的，过滤器需要和选择器一起使用<ul>
+<li>基本选择器<ul>
+<li>选择第一个对象，<code>$(&quot;选择器:first&quot;)</code></li>
+<li>选择最后一个对象，<code>$(&quot;选择器:last&quot;)</code></li>
+<li>选择指定下标的对象，<code>$(&quot;选择器:eq(下标)&quot;)</code></li>
+<li>选择小于指定下标的对象，<code>$(&quot;选择器:lt(下标)&quot;)</code></li>
+<li>选择大于指定下标的对象，<code>$(&quot;选择器:gt(下标)&quot;)</code></li>
+</ul>
 </li>
-<li><p>jackson：性能好，规范好</p>
-<pre><code class="hljs javascript">ObjectMapper om = <span class="hljs-keyword">new</span> ObjectMapper();
-<span class="hljs-comment">// writeValueAsString:把参数的java对象转为json格式的字符串</span>
-<span class="hljs-built_in">String</span> json = om.writeValueAsString(p);</code></pre>
+<li>表单属性过滤器：根据表单dom对象的状态，过滤dom对象的状态，状态有启用的，不可用的，选中<ul>
+<li>可用的，<code>$(&quot;:text:enabled&quot;)</code></li>
+<li>不可用的，<code>$(&quot;:text:disabled&quot;)</code></li>
+<li>单选或者复选框选中的，<code>$(&quot;:radio:checked&quot;)</code></li>
+<li>下拉列表框的选中，<code>$(&quot;选择器&gt;option:selected&quot;)</code></li>
+</ul>
 </li>
-<li><p>json-lib：性能差，依赖多</p>
+</ul>
+</li>
+<li><p>函数</p>
+<ul>
+<li><code>val</code>：获取或设置dom对象的value属性值</li>
+<li><code>text</code>：读取或设置标签的文本内容的</li>
+<li><code>attr</code>：读取或设置标签的某个属性值</li>
+<li><code>remove</code>：删除dom和子对象</li>
+<li><code>empty</code>：删除dom的子对象</li>
+<li><code>append</code>：添加dom对象</li>
+<li><code>html</code>：读取或设置标签的文本值，操作的是innerHTML</li>
+<li><code>each</code>：循环<ul>
+<li>普通数组</li>
+<li>json对象</li>
+<li>dom数组</li>
+</ul>
+</li>
+<li><code>each</code>循环的语法<ul>
+<li><code>$.each(循环的对象, function(i, n) &#123;&#125;)</code></li>
+<li><code>jquery对象.each(function(i, n) &#123;&#125;)</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>jquery处理事件</p>
+<ul>
+<li>绑定事件，<code>jquery对象.事件名称(事件处理函数)</code> — 按钮单击，<code>$(&quot;btn&quot;).click(function()&#123;&#125;)</code></li>
+<li>on绑定事件，<code>jquery对象.on(事件名称，处理函数)</code> — 按钮单击，<code>$(&quot;btn&quot;).on(click, function()&#123;&#125;)</code></li>
+</ul>
+</li>
+<li><p>jquery处理ajax请求：使用的函数 </p>
+<ul>
+<li>核心<code>$.ajax()</code><ul>
+<li>介绍：使用json的参数格式，表示请求的各种参数</li>
+<li>json格式的内容<ul>
+<li><code>url</code>：请求的地址</li>
+<li><code>type</code>：请求的方式，get或post，默认是get</li>
+<li><code>data</code>：请求的参数，使用json格式比较多</li>
+<li><code>dataType</code>：期望服务器端返回的数据格式，可以xml，html，json等</li>
+<li><code>aysnc</code>：布尔值，默认是true，异步的请求方式</li>
+<li><code>success</code>：指定一个函数，当服务器端返回数据时，自动执行这个函数</li>
+<li><code>error</code>：指定一个函数，当错误时执行这个函数</li>
+<li><code>contentType</code>：数据格式，可以不写</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><code>$.post</code>：使用post方式发送请求<ul>
+<li><code>$.post(请求的服务器端地址， 请求的参数， 处理函数， 数据格式json)</code></li>
+<li><code>$.get(请求的服务器端地址， 请求的参数， 处理函数， 数据格式json)</code></li>
+</ul>
 </li>
 </ul>
 </li>
@@ -274,9 +330,9 @@
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/ajax/">ajax</a>
-                    
                       <a class="hover-with-bg" href="/tags/%E5%89%8D%E7%AB%AF/">前端</a>
+                    
+                      <a class="hover-with-bg" href="/tags/jQuery/">jQuery</a>
                     
                   </div>
                 
@@ -289,18 +345,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2021/03/30/jQuery%E5%B0%8F%E7%BB%93/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">jQuery小结</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2021/03/26/MVC%E5%BC%80%E5%8F%91%E8%A7%84%E5%88%99/">
-                        <span class="hidden-mobile">MVC开发规则</span>
+                      <a href="/2021/03/28/AJAX%E5%B0%8F%E7%BB%93/">
+                        <span class="hidden-mobile">AJAX小结</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -465,7 +515,7 @@
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "AJAX小结&nbsp;",
+        "jQuery小结&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,
