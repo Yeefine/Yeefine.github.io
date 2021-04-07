@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="Yeefine">
   <meta name="keywords" content="">
-  <title>jQuery小结 - Yeefine&#39;s Blog</title>
+  <title>Maven小结 - Yeefine&#39;s Blog</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 
@@ -160,8 +160,8 @@
               
   <div class="mt-3 post-meta">
     <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-    <time datetime="2021-03-30 23:16" pubdate>
-      2021年3月30日 晚上
+    <time datetime="2021-04-07 19:52" pubdate>
+      2021年4月7日 晚上
     </time>
   </div>
 
@@ -171,7 +171,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      910 字
+      1.2k 字
     </span>
   
 
@@ -181,7 +181,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      10
+      14
        分钟
     </span>
   
@@ -211,112 +211,129 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto" id="post">
             <!-- SEO header -->
-            <h1 style="display: none">jQuery小结</h1>
+            <h1 style="display: none">Maven小结</h1>
             
             <div class="markdown-body" id="post-body">
-              <h4 id="1-什么是jQuery？"><a href="#1-什么是jQuery？" class="headerlink" title="1. 什么是jQuery？"></a>1. 什么是jQuery？</h4><p>​    是一个javascript的库，里面有很多的函数</p>
-<h4 id="2-作用"><a href="#2-作用" class="headerlink" title="2. 作用"></a>2. 作用</h4><p>​    可以操作dom对象，事件处理，动画，ajax</p>
-<h4 id="3-jQuery的优点"><a href="#3-jQuery的优点" class="headerlink" title="3. jQuery的优点"></a>3. jQuery的优点</h4><ol>
-<li>免费，开源的</li>
-<li>比较小巧，压缩的版本只有87k大小；</li>
-<li>兼容大多数的浏览器</li>
-<li>文档齐备</li>
+              <h4 id="1-maven"><a href="#1-maven" class="headerlink" title="1. maven"></a>1. maven</h4><p>​    是一个项目的构建工具</p>
+<h4 id="2-maven的作用"><a href="#2-maven的作用" class="headerlink" title="2. maven的作用"></a>2. maven的作用</h4><ol>
+<li>管理依赖：jar管理的，下载，版本</li>
+<li>构建项目，完成项目代码的编译，测试，打包，部署</li>
 </ol>
-<h4 id="4-对象分类"><a href="#4-对象分类" class="headerlink" title="4. 对象分类"></a>4. 对象分类</h4><ul>
-<li>dom对象：使用js语法创建的对象是dom对象，也是js对象。dom对象可以调用dom方法，属性。</li>
-<li>jQuery对象：使用jQuery语法创建的对象，jQuery独享能调用jQuery函数库中的函数或者属性。jQuery对象是数组，数组中的每个元素是dom对象。</li>
-</ul>
-<h4 id="5-选择器"><a href="#5-选择器" class="headerlink" title="5. 选择器"></a>5. 选择器</h4><ul>
-<li>什么是选择器：就是一个字符串，用来定位dom对象的，就是选择页面中dom对象的条件</li>
-<li><p>基本选择器</p>
+<h4 id="3-maven的使用方式"><a href="#3-maven的使用方式" class="headerlink" title="3. maven的使用方式"></a>3. maven的使用方式</h4><ol>
+<li>独立使用maven：使用maven的各种命令，完成代码的编译，测试，打包等</li>
+<li>结合开发工具使用，一般在idea中使用maven：简单，快捷，不需要记命令</li>
+</ol>
+<h4 id="4-maven的安装"><a href="#4-maven的安装" class="headerlink" title="4. maven的安装"></a>4. maven的安装</h4><ol>
+<li>获取安装包，zip文件</li>
+<li>解压缩文件，到一个目录，非中文目录</li>
+<li>配置环境变量，M2_HOME，它的值是maven的安装目录</li>
+<li>在path中加入<code>%M2_HOME\bin</code></li>
+<li>测试maven的安装，使用<code>mvn -v</code>，查看maven的版本信息</li>
+</ol>
+<h4 id="5-maven的核心概念"><a href="#5-maven的核心概念" class="headerlink" title="5. maven的核心概念"></a>5. maven的核心概念</h4><ol>
+<li><p>约定的目录结构</p>
 <ul>
-<li>id选择器：语法<code>$(&quot;#id值&quot;)</code></li>
-<li>class选择器：语法<code>$(&quot;.class名称&quot;)</code></li>
-<li>标签选择器：语法<code>$(&quot;标签名称&quot;)</code></li>
-<li>所有选择器：语法<code>$(&quot;*&quot;)</code></li>
-<li>组合选择器：语法<code>$(&quot;id选择器，class选择器，标签选择器&quot;)</code></li>
+<li>项目的目录Hello</li>
+<li><code>src</code>和<code>pom.xml</code>平级</li>
+<li><code>src/main</code><ul>
+<li><code>java</code>：主程序java文件</li>
+<li><code>resources</code>：配置文件</li>
 </ul>
 </li>
-<li><p>表单选择器</p>
+<li><code>src/test</code><ul>
+<li><code>java</code>：测试程序代码</li>
+<li><code>resources</code>：测试使用的配置文件</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>坐标（gav）</p>
+<ol>
+<li><code>groupId</code>：组织编码，域名倒写</li>
+<li><code>artifactId</code>：项目名称</li>
+<li><code>version</code>：自定义版本号</li>
+</ol>
+</li>
+<li><p>依赖（dependency）：maven管理依赖</p>
+<pre><code class="hljs xml"><span class="hljs-comment">&lt;!--使用依赖吧jar导入到项目中--&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>junit<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>junit<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>4.11<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">scope</span>&gt;</span>test<span class="hljs-tag">&lt;/<span class="hljs-name">scope</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span></code></pre>
+</li>
+<li><p>仓库</p>
 <ul>
-<li>使用dom对象的type属性定位</li>
-<li>语法：<code>$(&quot;:type属性值&quot;)</code>。例如如果想要定位所有的text，<code>$(&quot;:text&quot;)</code></li>
-</ul>
-</li>
-<li>过滤器：是一个字符串，用来筛选dom对象的，过滤器需要和选择器一起使用<ul>
-<li>基本选择器<ul>
-<li>选择第一个对象，<code>$(&quot;选择器:first&quot;)</code></li>
-<li>选择最后一个对象，<code>$(&quot;选择器:last&quot;)</code></li>
-<li>选择指定下标的对象，<code>$(&quot;选择器:eq(下标)&quot;)</code></li>
-<li>选择小于指定下标的对象，<code>$(&quot;选择器:lt(下标)&quot;)</code></li>
-<li>选择大于指定下标的对象，<code>$(&quot;选择器:gt(下标)&quot;)</code></li>
-</ul>
-</li>
-<li>表单属性过滤器：根据表单dom对象的状态，过滤dom对象的状态，状态有启用的，不可用的，选中<ul>
-<li>可用的，<code>$(&quot;:text:enabled&quot;)</code></li>
-<li>不可用的，<code>$(&quot;:text:disabled&quot;)</code></li>
-<li>单选或者复选框选中的，<code>$(&quot;:radio:checked&quot;)</code></li>
-<li>下拉列表框的选中，<code>$(&quot;选择器&gt;option:selected&quot;)</code></li>
+<li>存放的<code>jar</code>，maven的插件等等</li>
+<li>仓库分类<ul>
+<li>本地仓库：可以在maven安装目录/conf/settings.xml指定，<code>&lt;localRespository&gt;非中文路径，不要有空格&lt;/localRespository&gt;</code></li>
+<li>中央仓库：最权威的，所有资源都在这里</li>
+<li>中央仓库的镜像：分担压力的</li>
+<li>私服：公司的局域网内部使用的</li>
 </ul>
 </li>
 </ul>
 </li>
-<li><p>函数</p>
+<li><p>maven的命令：maven通过命令完成项目的构建</p>
+<ol>
+<li><code>mvn clean</code>：清理</li>
+<li><code>mvn compile</code>：编译<code>src/main/java目录</code>中的程序，把java编译为class文件，并放到<code>target/classes目录</code>中；同时会把<code>src/main/resources/目录</code>中的文件拷贝到<code>target/classes目录</code>中</li>
+<li><code>mvn test-compile</code>：编译<code>src/main/test目录</code>下的java程序，拷贝到<code>target/test-classes目录</code>中</li>
+<li><code>mvn test</code>：可以进行单元测试，使用<code>junit</code>测试<code>src/main/java目录</code>中的程序是否符合要求</li>
+<li><code>mvn package</code>：打包，把程序中<code>src/main/目录</code>下面的java编译后的class和resources中的配置文件放入到一个压缩文件中，javase-jar，web-war</li>
+<li><code>mvn install</code>：把<code>jar</code>，<code>war</code>安装到本机的仓库中</li>
+</ol>
+</li>
+<li><p>maven的生命周期和插件</p>
 <ul>
-<li><code>val</code>：获取或设置dom对象的value属性值</li>
-<li><code>text</code>：读取或设置标签的文本内容的</li>
-<li><code>attr</code>：读取或设置标签的某个属性值</li>
-<li><code>remove</code>：删除dom和子对象</li>
-<li><code>empty</code>：删除dom的子对象</li>
-<li><code>append</code>：添加dom对象</li>
-<li><code>html</code>：读取或设置标签的文本值，操作的是innerHTML</li>
-<li><code>each</code>：循环<ul>
-<li>普通数组</li>
-<li>json对象</li>
-<li>dom数组</li>
+<li>生命周期：项目的构建过程，清理、编译、测试、报告、打包、安装、部署</li>
+<li>插件：maven提供的功能，用来执行清理、编译、测试、报告、打包的程序</li>
 </ul>
 </li>
-<li><code>each</code>循环的语法<ul>
-<li><code>$.each(循环的对象, function(i, n) &#123;&#125;)</code></li>
-<li><code>jquery对象.each(function(i, n) &#123;&#125;)</code></li>
-</ul>
+</ol>
+<h4 id="6-依赖范围"><a href="#6-依赖范围" class="headerlink" title="6. 依赖范围"></a>6. 依赖范围</h4><ol>
+<li><code>compile</code>：默认，在够贱的编译、测试、打包、部署需要</li>
+<li><code>test</code>：只在测试阶段需要</li>
+<li><code>provided</code>：在部署时，由服务器提供，项目本身不需要自带</li>
+</ol>
+<h4 id="7-maven常用设置"><a href="#7-maven常用设置" class="headerlink" title="7. maven常用设置"></a>7. maven常用设置</h4><ol>
+<li><p>maven自己的属性</p>
+<pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">project.build.sourceEncoding</span>&gt;</span>UTF-8<span class="hljs-tag">&lt;/<span class="hljs-name">project.build.sourceEncoding</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">maven.compiler.source</span>&gt;</span>14<span class="hljs-tag">&lt;/<span class="hljs-name">maven.compiler.source</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">maven.compiler.target</span>&gt;</span>14<span class="hljs-tag">&lt;/<span class="hljs-name">maven.compiler.target</span>&gt;</span></code></pre>
 </li>
-</ul>
+<li><p>自定义变量</p>
+<pre><code class="hljs xml"><span class="hljs-comment">&lt;!--自定义变量，表示版本号--&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">junit.version</span>&gt;</span>4.11<span class="hljs-tag">&lt;/<span class="hljs-name">junit.version</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>junit<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>junit<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>$&#123;junit.version&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">scope</span>&gt;</span>test<span class="hljs-tag">&lt;/<span class="hljs-name">scope</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span></code></pre>
 </li>
-<li><p>jquery处理事件</p>
-<ul>
-<li>绑定事件，<code>jquery对象.事件名称(事件处理函数)</code> — 按钮单击，<code>$(&quot;btn&quot;).click(function()&#123;&#125;)</code></li>
-<li>on绑定事件，<code>jquery对象.on(事件名称，处理函数)</code> — 按钮单击，<code>$(&quot;btn&quot;).on(click, function()&#123;&#125;)</code></li>
-</ul>
+<li><p>resource资源插件</p>
+<pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">build</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">resources</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">resource</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">directory</span>&gt;</span>src/main/java<span class="hljs-tag">&lt;/<span class="hljs-name">directory</span>&gt;</span><span class="hljs-comment">&lt;!-- 所在的目录 所在的目录 所在的目录--&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">includes</span>&gt;</span><span class="hljs-comment">&lt;!-- 包括目录下的 包括目录下的 包括目录下的 .properties,.xml 文件都会扫描到 文件都会扫描到 文件都会扫描到 文件都会扫描到 --&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">include</span>&gt;</span>**/*.properties<span class="hljs-tag">&lt;/<span class="hljs-name">include</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">include</span>&gt;</span>**/*.xml<span class="hljs-tag">&lt;/<span class="hljs-name">include</span>&gt;</span>
+            <span class="hljs-tag">&lt;/<span class="hljs-name">includes</span>&gt;</span>
+            <span class="hljs-comment">&lt;!--filtering选项 false不启用过滤器， 不启用过滤器， 不启用过滤器， 不启用过滤器， *.property已经起到过滤的作用了 已经起到过滤的作用了 已经起到过滤的作用了 已经起到过滤的作用了 已经起到过滤的作用了--&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">filtering</span>&gt;</span>false<span class="hljs-tag">&lt;/<span class="hljs-name">filtering</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">resource</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">resources</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">build</span>&gt;</span></code></pre>
+<ol>
+<li>默认没有使用resources的时候，maven执行编译代码时，会把<code>src/main/resources目录</code>中的文件拷贝到<code>target/classes目录</code>中。对于<code>src/main/java目录</code>下的非java文件不处理，不拷贝到<code>target/classes目录</code>中</li>
+<li>我们的程序有需要把一些文件放置<code>src/main/java目录</code>中，当我在执行java程序时，需要用到<code>scr/main/java目录</code>中的文件。需要告诉maven在<code>mvn compile</code>编译<code>src/main/java目录</code>下的程序时，需要把文件一同拷贝到<code>target/classes目录</code>中。此时就需要在<code>&lt;build&gt;</code>中加入<code>&lt;resources&gt;</code></li>
+</ol>
 </li>
-<li><p>jquery处理ajax请求：使用的函数 </p>
-<ul>
-<li>核心<code>$.ajax()</code><ul>
-<li>介绍：使用json的参数格式，表示请求的各种参数</li>
-<li>json格式的内容<ul>
-<li><code>url</code>：请求的地址</li>
-<li><code>type</code>：请求的方式，get或post，默认是get</li>
-<li><code>data</code>：请求的参数，使用json格式比较多</li>
-<li><code>dataType</code>：期望服务器端返回的数据格式，可以xml，html，json等</li>
-<li><code>aysnc</code>：布尔值，默认是true，异步的请求方式</li>
-<li><code>success</code>：指定一个函数，当服务器端返回数据时，自动执行这个函数</li>
-<li><code>error</code>：指定一个函数，当错误时执行这个函数</li>
-<li><code>contentType</code>：数据格式，可以不写</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><code>$.post</code>：使用post方式发送请求<ul>
-<li><code>$.post(请求的服务器端地址， 请求的参数， 处理函数， 数据格式json)</code></li>
-</ul>
-</li>
-<li><code>$.get</code>：使用get方式发送请求<ul>
-<li><code>$.get(请求的服务器端地址， 请求的参数， 处理函数， 数据格式json)</code></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
+</ol>
 
             </div>
             <hr>
@@ -334,9 +351,7 @@
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/%E5%89%8D%E7%AB%AF/">前端</a>
-                    
-                      <a class="hover-with-bg" href="/tags/jQuery/">jQuery</a>
+                      <a class="hover-with-bg" href="/tags/Maven/">Maven</a>
                     
                   </div>
                 
@@ -349,18 +364,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2021/04/07/Maven%E5%B0%8F%E7%BB%93/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Maven小结</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2021/03/28/AJAX%E5%B0%8F%E7%BB%93/">
-                        <span class="hidden-mobile">AJAX小结</span>
+                      <a href="/2021/03/30/jQuery%E5%B0%8F%E7%BB%93/">
+                        <span class="hidden-mobile">jQuery小结</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -525,7 +534,7 @@
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "jQuery小结&nbsp;",
+        "Maven小结&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,
