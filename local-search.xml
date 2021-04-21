@@ -4,6 +4,58 @@
   
   
   <entry>
+    <title>MyBatis小结</title>
+    <link href="/2021/04/21/MyBatis%E5%B0%8F%E7%BB%93/"/>
+    <url>/2021/04/21/MyBatis%E5%B0%8F%E7%BB%93/</url>
+    
+    <content type="html"><![CDATA[<h3 id="mybatis"><a href="#mybatis" class="headerlink" title="mybatis"></a>mybatis</h3><h4 id="1-三层架构"><a href="#1-三层架构" class="headerlink" title="1. 三层架构"></a>1. 三层架构</h4><ol><li>界面层（视图层）：完成和用户的交互，接受请求，显示请求的处理结果</li><li>业务逻辑层：计算数据，处理业务逻辑</li><li>数据访问层（持久层）：数据库操作</li></ol><h4 id="2-框架"><a href="#2-框架" class="headerlink" title="2. 框架"></a>2. 框架</h4><ol><li>界面层：SpringMVC</li><li>业务逻辑层：Spring</li><li>数据访问层：MyBatis</li></ol><h4 id="3-mybatis"><a href="#3-mybatis" class="headerlink" title="3. mybatis"></a>3. mybatis</h4><ul><li><p>作用：增强的jdbc，访问数据库，执行增删改查</p></li><li><p>基本步骤</p><ol><li><p>加入maven的依赖</p><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span>  <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.mybatis<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span>  <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>mybatis<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span>  <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>3.5.1<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span></code></pre></li><li><p>创建Dao接口：定义了操作数据的方法</p></li><li><p>创建mapper文件，也叫做sql映射文件：写sql语句的，和接口中方法对应的sql语句</p></li><li><p>创建mybatis的一个主配置文件：1）连接数据库；2）指定mapper文件的位置</p></li><li><p>使用mybatis的对象SqlSession，通过其方法执行sql语句</p></li></ol></li><li><p>使用mybatis的动态代理</p><ul><li><p>什么是动态代理：mybatis帮你创建dao接口的实现类，在实现类中调用SqlSession的方法执行 sql语句</p></li><li><p>使用动态代理方式</p><ol><li>获取SqlSession对象，<code>SqlSessionFactory.openSession()</code></li><li>使用getMapper方法获取某个接口的对象，<code>sqlSession.getMapper(接口.class)</code></li><li>使用dao接口的方法，调用方法就执行了mapper文件中的sql语句</li></ol></li><li><p>使用动态代理方式的要求</p><ol><li>dao接口和mapper文件放在一起，同一个目录</li><li>dao接口和mapper文件名称一致</li><li>mapper文件中的<code>namespace</code>的值是dao接口的全限定名称</li><li>mapper文件中的<code>&lt;select&gt;</code>，<code>&lt;insert&gt;</code>，<code>&lt;update&gt;</code>，<code>&lt;delete&gt;</code>等的id是接口中方法名称</li><li>dao接口中不要使用重载方法，不要使用同名的，不同参数的方法。</li></ol></li><li><p>理解参数</p><p>从java代码中把实际的值传入到mapper文件中</p><ol><li>一个简单类型的参数：<code>#&#123;任意字符&#125;</code></li><li>多个简单类型的参数：使用<code>@Param(&quot;自定义名称&quot;)</code></li><li>使用一个java对象，对象的属性值作为mapper文件中的参数，<code>#&#123;java对象的属性名称&#125;</code></li><li>使用参数的位置，语法<code>#&#123;arg0&#125;, #&#123;arg1&#125;</code>，mybatis3.4之前的版本，使用的是<code>#&#123;0&#125;, #&#123;1&#125;</code></li><li>使用Map作为参数，<code>#&#123;map的key&#125;</code></li></ol></li><li><p><code>#</code>和<code>$</code>的区别</p><ol><li><code>#</code>是占位符，表示列值的，放在等号右侧</li><li><code>$</code>占位符，表示字符串的连接，把sql语句连接成一个字符串</li><li><code>#</code>占位符使用的jdbc指定<code>PreparedStatement</code>对象执行SQL语句，销路好，没有sql注入的风险</li><li><code>$</code>使用的是<code>Statement</code>对象执行sql，效率低，有sql注入的风险</li></ol></li><li><p>mybatis返回结果</p><ul><li><code>resultType</code>：表示sql语句的执行结果，转为的java对象的类型<ol><li>类型的全限定名称</li><li>别名：在mybatis主配置文件定义别名<ol><li>使用<code>&lt;typeAlias&gt;</code></li><li>使用<code>&lt;package name=&#39;包名&#39; /&gt;</code>：类名就是别名</li></ol></li></ol></li><li><code>resultMap</code>：自定义类名和java对象的属性名对应关系</li><li>列名和属性名不一样的解决方式<ol><li>使用列名</li><li>使用resultMap</li></ol></li><li><code>like</code>：<ol><li>在java代码中指定<code>like</code>的内容</li><li>在mapper中拼接<code>like</code></li></ol></li></ul></li><li><p>动态sql：根据条件，能够得到不同的sql语句，使用mybatis的标签，例如if，where，foreach等</p><ul><li><p><code>if</code>：判断条件的，条件为true，就会把if之间的sql加入到主sql之后</p></li><li><p><code>where</code>：<code>&lt;where&gt;</code>标签里面是多个<strong>if</strong>，如果有一个if判断为true，会在sql的后面加入<strong>where</strong>关键字，会去掉无用的and，or等字符</p></li><li><p><code>foreach</code>：循环数组，list集合</p><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">foreach</span> <span class="hljs-attr">collection</span>=<span class="hljs-string">&quot;&quot;</span> <span class="hljs-attr">item</span>=<span class="hljs-string">&quot;&quot;</span> <span class="hljs-attr">open</span>=<span class="hljs-string">&quot;&quot;</span> <span class="hljs-attr">close</span>=<span class="hljs-string">&quot;&quot;</span> <span class="hljs-attr">separator</span>=<span class="hljs-string">&quot;&quot;</span>&gt;</span>#&#123;xxx&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">foreach</span>&gt;</span>collection：表示接口中的方法参数的类型，如果是数组使用array，如果是list集合使用listitem：自定义的，表示数组和集合成员的变量open：循环开始时的字符close：循环结束时的字符separator：集合成员之间的分隔符</code></pre></li><li><p>sql代码片段：复用部分sql语句</p><ol><li>先定义<code>&lt;sql id=&quot;自定义名称唯一&quot;&gt;sql语句，表名，字段等&lt;/sql&gt;</code></li><li>再使用，<code>&lt;include refid=&quot;id的值&quot;/&gt;</code></li></ol></li></ul></li><li><p>mybatis主配置文件</p><ol><li><p>数据库属性配置文件的使用</p><ol><li>在resources目录中定义一个属性配置文件，<code>xxx.properties</code>，例如，<code>jdbc.properties</code>。在属性配置文件中，定义数据，格式是<code>key=value</code>，key一般使用<code>.</code>做多级目录的</li><li>在mybatis的主配置文件，使用<code>&lt;property&gt;</code>指定文件的位置，在需要使用值的地方，<code>$&#123;key&#125;</code></li></ol></li><li><p>mapper文件的位置</p><pre><code class="hljs xml"><span class="hljs-comment">&lt;!--第二种方式：使用包名</span><span class="hljs-comment">            name：xml文件（mapper文件）所在的包名，这个包中所有xml文件一次都能加载给mybatis</span><span class="hljs-comment">            使用package的要求：</span><span class="hljs-comment">                1. mapper文件名称需要和接口名称一样，区分大小写也一样</span><span class="hljs-comment">                2. mapper文件和dao接口需要再同一目录</span><span class="hljs-comment">        --&gt;</span>        <span class="hljs-tag">&lt;<span class="hljs-name">package</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;com.bjpowernode.dao&quot;</span>/&gt;</span></code></pre></li></ol></li><li><p><code>PageHelper</code>：分页</p><ul><li><p>功能：实现多种数据库的分页，mysql就是代替limit语句的</p></li><li><p>使用步骤：</p><ol><li><p>加入maven依赖</p><pre><code class="hljs xml"><span class="hljs-comment">&lt;!--PageHelper依赖--&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>com.github.pagehelper<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>pagehelper<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span>    <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>5.1.10<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span></code></pre></li><li><p>在mybatis主配置文件，加入plugin</p><pre><code class="hljs xml"><span class="hljs-comment">&lt;!--配置插件--&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">plugins</span>&gt;</span>    <span class="hljs-tag">&lt;<span class="hljs-name">plugin</span> <span class="hljs-attr">interceptor</span>=<span class="hljs-string">&quot;com.github.pagehelper.PageInterceptor&quot;</span> /&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">plugins</span>&gt;</span></code></pre></li><li><p>在查询方式之前，加入PageHelper方法调。</p><pre><code class="hljs java"><span class="hljs-comment">// 加入PageHelper的方法，分页</span><span class="hljs-comment">// pageNum：第几页，从1开始</span><span class="hljs-comment">// pageSize：一页中有多少行数据</span>PageHelper.startPage(<span class="hljs-number">1</span>, <span class="hljs-number">3</span>);</code></pre></li></ol></li></ul></li></ul></li></ul>]]></content>
+    
+    
+    <categories>
+      
+      <category>总结</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>框架</tag>
+      
+      <tag>MyBatis</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>JDK动态代理</title>
+    <link href="/2021/04/21/JDK%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86/"/>
+    <url>/2021/04/21/JDK%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86/</url>
+    
+    <content type="html"><![CDATA[<h4 id="1-代理模式"><a href="#1-代理模式" class="headerlink" title="1. 代理模式"></a>1. 代理模式</h4><p>当一个对象不能直接使用，可以在客户端和目标对象直接创建一个中介，这个中介就是代理</p><h4 id="2-作用"><a href="#2-作用" class="headerlink" title="2. 作用"></a>2. 作用</h4><ol><li>控制访问：在代理中，控制是否可以调用目标对象的方法。</li><li>功能增强：可以在完成目标对象的调用时，附加一些额外的功能，这些额外的功能叫做功能增强。</li></ol><h4 id="3-代理的实现方式"><a href="#3-代理的实现方式" class="headerlink" title="3. 代理的实现方式"></a>3. 代理的实现方式</h4><ol><li>静态代理：代理类是手工实现的java文件，同时代理的目标对象是规定的。<ol><li>优点：容易理解、使用方便</li><li>缺点：在目标类比较多的时候，会产生大量的代理类；当接口改变时，影响的目标类和代理比较多，都需要修改</li></ol></li><li>动态代理：使用反射机制，在程序执行中，创建代理类对象。不用创建类文件，代理的目标类是活动的，可设置的<ol><li>不用创建代理类</li><li>可以给不同的目标随时创建代理</li></ol></li></ol>]]></content>
+    
+    
+    <categories>
+      
+      <category>总结</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>动态代理</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>Maven小结</title>
     <link href="/2021/04/07/Maven%E5%B0%8F%E7%BB%93/"/>
     <url>/2021/04/07/Maven%E5%B0%8F%E7%BB%93/</url>

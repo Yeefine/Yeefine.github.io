@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="Yeefine">
   <meta name="keywords" content="">
-  <title>Maven小结 - Yeefine&#39;s Blog</title>
+  <title>MyBatis小结 - Yeefine&#39;s Blog</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 
@@ -160,8 +160,8 @@
               
   <div class="mt-3 post-meta">
     <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-    <time datetime="2021-04-07 19:52" pubdate>
-      2021年4月7日 晚上
+    <time datetime="2021-04-21 21:30" pubdate>
+      2021年4月21日 晚上
     </time>
   </div>
 
@@ -171,7 +171,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.2k 字
+      1.4k 字
     </span>
   
 
@@ -181,7 +181,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      14
+      16
        分钟
     </span>
   
@@ -211,129 +211,180 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto" id="post">
             <!-- SEO header -->
-            <h1 style="display: none">Maven小结</h1>
+            <h1 style="display: none">MyBatis小结</h1>
             
             <div class="markdown-body" id="post-body">
-              <h4 id="1-maven"><a href="#1-maven" class="headerlink" title="1. maven"></a>1. maven</h4><p>​    是一个项目的构建工具</p>
-<h4 id="2-maven的作用"><a href="#2-maven的作用" class="headerlink" title="2. maven的作用"></a>2. maven的作用</h4><ol>
-<li>管理依赖：jar管理的，下载，版本</li>
-<li>构建项目，完成项目代码的编译，测试，打包，部署</li>
+              <h3 id="mybatis"><a href="#mybatis" class="headerlink" title="mybatis"></a>mybatis</h3><h4 id="1-三层架构"><a href="#1-三层架构" class="headerlink" title="1. 三层架构"></a>1. 三层架构</h4><ol>
+<li>界面层（视图层）：完成和用户的交互，接受请求，显示请求的处理结果</li>
+<li>业务逻辑层：计算数据，处理业务逻辑</li>
+<li>数据访问层（持久层）：数据库操作</li>
 </ol>
-<h4 id="3-maven的使用方式"><a href="#3-maven的使用方式" class="headerlink" title="3. maven的使用方式"></a>3. maven的使用方式</h4><ol>
-<li>独立使用maven：使用maven的各种命令，完成代码的编译，测试，打包等</li>
-<li>结合开发工具使用，一般在idea中使用maven：简单，快捷，不需要记命令</li>
+<h4 id="2-框架"><a href="#2-框架" class="headerlink" title="2. 框架"></a>2. 框架</h4><ol>
+<li>界面层：SpringMVC</li>
+<li>业务逻辑层：Spring</li>
+<li>数据访问层：MyBatis</li>
 </ol>
-<h4 id="4-maven的安装"><a href="#4-maven的安装" class="headerlink" title="4. maven的安装"></a>4. maven的安装</h4><ol>
-<li>获取安装包，zip文件</li>
-<li>解压缩文件，到一个目录，非中文目录</li>
-<li>配置环境变量，M2_HOME，它的值是maven的安装目录</li>
-<li>在path中加入<code>%M2_HOME\bin</code></li>
-<li>测试maven的安装，使用<code>mvn -v</code>，查看maven的版本信息</li>
-</ol>
-<h4 id="5-maven的核心概念"><a href="#5-maven的核心概念" class="headerlink" title="5. maven的核心概念"></a>5. maven的核心概念</h4><ol>
-<li><p>约定的目录结构</p>
-<ul>
-<li>项目的目录Hello</li>
-<li><code>src</code>和<code>pom.xml</code>平级</li>
-<li><code>src/main</code><ul>
-<li><code>java</code>：主程序java文件</li>
-<li><code>resources</code>：配置文件</li>
-</ul>
+<h4 id="3-mybatis"><a href="#3-mybatis" class="headerlink" title="3. mybatis"></a>3. mybatis</h4><ul>
+<li><p>作用：增强的jdbc，访问数据库，执行增删改查</p>
 </li>
-<li><code>src/test</code><ul>
-<li><code>java</code>：测试程序代码</li>
-<li><code>resources</code>：测试使用的配置文件</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>坐标（gav）</p>
+<li><p>基本步骤</p>
 <ol>
-<li><code>groupId</code>：组织编码，域名倒写</li>
-<li><code>artifactId</code>：项目名称</li>
-<li><code>version</code>：自定义版本号</li>
-</ol>
-</li>
-<li><p>依赖（dependency）：maven管理依赖</p>
-<pre><code class="hljs xml"><span class="hljs-comment">&lt;!--使用依赖吧jar导入到项目中--&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span>
-      <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>junit<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span>
-      <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>junit<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span>
-      <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>4.11<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span>
-      <span class="hljs-tag">&lt;<span class="hljs-name">scope</span>&gt;</span>test<span class="hljs-tag">&lt;/<span class="hljs-name">scope</span>&gt;</span>
+<li><p>加入maven的依赖</p>
+<pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.mybatis<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>mybatis<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>3.5.1<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span></code></pre>
 </li>
-<li><p>仓库</p>
+<li><p>创建Dao接口：定义了操作数据的方法</p>
+</li>
+<li><p>创建mapper文件，也叫做sql映射文件：写sql语句的，和接口中方法对应的sql语句</p>
+</li>
+<li><p>创建mybatis的一个主配置文件：1）连接数据库；2）指定mapper文件的位置</p>
+</li>
+<li><p>使用mybatis的对象SqlSession，通过其方法执行sql语句</p>
+</li>
+</ol>
+</li>
+<li><p>使用mybatis的动态代理</p>
 <ul>
-<li>存放的<code>jar</code>，maven的插件等等</li>
-<li>仓库分类<ul>
-<li>本地仓库：可以在maven安装目录/conf/settings.xml指定，<code>&lt;localRespository&gt;非中文路径，不要有空格&lt;/localRespository&gt;</code></li>
-<li>中央仓库：最权威的，所有资源都在这里</li>
-<li>中央仓库的镜像：分担压力的</li>
-<li>私服：公司的局域网内部使用的</li>
-</ul>
+<li><p>什么是动态代理：mybatis帮你创建dao接口的实现类，在实现类中调用SqlSession的方法执行 sql语句</p>
 </li>
-</ul>
-</li>
-<li><p>maven的命令：maven通过命令完成项目的构建</p>
+<li><p>使用动态代理方式</p>
 <ol>
-<li><code>mvn clean</code>：清理</li>
-<li><code>mvn compile</code>：编译<code>src/main/java目录</code>中的程序，把java编译为class文件，并放到<code>target/classes目录</code>中；同时会把<code>src/main/resources/目录</code>中的文件拷贝到<code>target/classes目录</code>中</li>
-<li><code>mvn test-compile</code>：编译<code>src/main/test目录</code>下的java程序，拷贝到<code>target/test-classes目录</code>中</li>
-<li><code>mvn test</code>：可以进行单元测试，使用<code>junit</code>测试<code>src/main/java目录</code>中的程序是否符合要求</li>
-<li><code>mvn package</code>：打包，把程序中<code>src/main/目录</code>下面的java编译后的class和resources中的配置文件放入到一个压缩文件中，javase-jar，web-war</li>
-<li><code>mvn install</code>：把<code>jar</code>，<code>war</code>安装到本机的仓库中</li>
+<li>获取SqlSession对象，<code>SqlSessionFactory.openSession()</code></li>
+<li>使用getMapper方法获取某个接口的对象，<code>sqlSession.getMapper(接口.class)</code></li>
+<li>使用dao接口的方法，调用方法就执行了mapper文件中的sql语句</li>
 </ol>
 </li>
-<li><p>maven的生命周期和插件</p>
+<li><p>使用动态代理方式的要求</p>
+<ol>
+<li>dao接口和mapper文件放在一起，同一个目录</li>
+<li>dao接口和mapper文件名称一致</li>
+<li>mapper文件中的<code>namespace</code>的值是dao接口的全限定名称</li>
+<li>mapper文件中的<code>&lt;select&gt;</code>，<code>&lt;insert&gt;</code>，<code>&lt;update&gt;</code>，<code>&lt;delete&gt;</code>等的id是接口中方法名称</li>
+<li>dao接口中不要使用重载方法，不要使用同名的，不同参数的方法。</li>
+</ol>
+</li>
+<li><p>理解参数</p>
+<p>从java代码中把实际的值传入到mapper文件中</p>
+<ol>
+<li>一个简单类型的参数：<code>#&#123;任意字符&#125;</code></li>
+<li>多个简单类型的参数：使用<code>@Param(&quot;自定义名称&quot;)</code></li>
+<li>使用一个java对象，对象的属性值作为mapper文件中的参数，<code>#&#123;java对象的属性名称&#125;</code></li>
+<li>使用参数的位置，语法<code>#&#123;arg0&#125;, #&#123;arg1&#125;</code>，mybatis3.4之前的版本，使用的是<code>#&#123;0&#125;, #&#123;1&#125;</code></li>
+<li>使用Map作为参数，<code>#&#123;map的key&#125;</code></li>
+</ol>
+</li>
+<li><p><code>#</code>和<code>$</code>的区别</p>
+<ol>
+<li><code>#</code>是占位符，表示列值的，放在等号右侧</li>
+<li><code>$</code>占位符，表示字符串的连接，把sql语句连接成一个字符串</li>
+<li><code>#</code>占位符使用的jdbc指定<code>PreparedStatement</code>对象执行SQL语句，销路好，没有sql注入的风险</li>
+<li><code>$</code>使用的是<code>Statement</code>对象执行sql，效率低，有sql注入的风险</li>
+</ol>
+</li>
+<li><p>mybatis返回结果</p>
 <ul>
-<li>生命周期：项目的构建过程，清理、编译、测试、报告、打包、安装、部署</li>
-<li>插件：maven提供的功能，用来执行清理、编译、测试、报告、打包的程序</li>
+<li><code>resultType</code>：表示sql语句的执行结果，转为的java对象的类型<ol>
+<li>类型的全限定名称</li>
+<li>别名：在mybatis主配置文件定义别名<ol>
+<li>使用<code>&lt;typeAlias&gt;</code></li>
+<li>使用<code>&lt;package name=&#39;包名&#39; /&gt;</code>：类名就是别名</li>
+</ol>
+</li>
+</ol>
+</li>
+<li><code>resultMap</code>：自定义类名和java对象的属性名对应关系</li>
+<li>列名和属性名不一样的解决方式<ol>
+<li>使用列名</li>
+<li>使用resultMap</li>
+</ol>
+</li>
+<li><code>like</code>：<ol>
+<li>在java代码中指定<code>like</code>的内容</li>
+<li>在mapper中拼接<code>like</code></li>
+</ol>
+</li>
 </ul>
 </li>
-</ol>
-<h4 id="6-依赖范围"><a href="#6-依赖范围" class="headerlink" title="6. 依赖范围"></a>6. 依赖范围</h4><ol>
-<li><code>compile</code>：默认，在够贱的编译、测试、打包、部署需要</li>
-<li><code>test</code>：只在测试阶段需要</li>
-<li><code>provided</code>：在部署时，由服务器提供，项目本身不需要自带</li>
-</ol>
-<h4 id="7-maven常用设置"><a href="#7-maven常用设置" class="headerlink" title="7. maven常用设置"></a>7. maven常用设置</h4><ol>
-<li><p>maven自己的属性</p>
-<pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">project.build.sourceEncoding</span>&gt;</span>UTF-8<span class="hljs-tag">&lt;/<span class="hljs-name">project.build.sourceEncoding</span>&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-name">maven.compiler.source</span>&gt;</span>14<span class="hljs-tag">&lt;/<span class="hljs-name">maven.compiler.source</span>&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-name">maven.compiler.target</span>&gt;</span>14<span class="hljs-tag">&lt;/<span class="hljs-name">maven.compiler.target</span>&gt;</span></code></pre>
+<li><p>动态sql：根据条件，能够得到不同的sql语句，使用mybatis的标签，例如if，where，foreach等</p>
+<ul>
+<li><p><code>if</code>：判断条件的，条件为true，就会把if之间的sql加入到主sql之后</p>
 </li>
-<li><p>自定义变量</p>
-<pre><code class="hljs xml"><span class="hljs-comment">&lt;!--自定义变量，表示版本号--&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-name">junit.version</span>&gt;</span>4.11<span class="hljs-tag">&lt;/<span class="hljs-name">junit.version</span>&gt;</span>
+<li><p><code>where</code>：<code>&lt;where&gt;</code>标签里面是多个<strong>if</strong>，如果有一个if判断为true，会在sql的后面加入<strong>where</strong>关键字，会去掉无用的and，or等字符</p>
+</li>
+<li><p><code>foreach</code>：循环数组，list集合</p>
+<pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">foreach</span> <span class="hljs-attr">collection</span>=<span class="hljs-string">&quot;&quot;</span> <span class="hljs-attr">item</span>=<span class="hljs-string">&quot;&quot;</span> <span class="hljs-attr">open</span>=<span class="hljs-string">&quot;&quot;</span> <span class="hljs-attr">close</span>=<span class="hljs-string">&quot;&quot;</span> <span class="hljs-attr">separator</span>=<span class="hljs-string">&quot;&quot;</span>&gt;</span>
+	#&#123;xxx&#125;
+<span class="hljs-tag">&lt;/<span class="hljs-name">foreach</span>&gt;</span>
 
+collection：表示接口中的方法参数的类型，如果是数组使用array，如果是list集合使用list
+item：自定义的，表示数组和集合成员的变量
+open：循环开始时的字符
+close：循环结束时的字符
+separator：集合成员之间的分隔符</code></pre>
+</li>
+<li><p>sql代码片段：复用部分sql语句</p>
+<ol>
+<li>先定义<code>&lt;sql id=&quot;自定义名称唯一&quot;&gt;sql语句，表名，字段等&lt;/sql&gt;</code></li>
+<li>再使用，<code>&lt;include refid=&quot;id的值&quot;/&gt;</code></li>
+</ol>
+</li>
+</ul>
+</li>
+<li><p>mybatis主配置文件</p>
+<ol>
+<li><p>数据库属性配置文件的使用</p>
+<ol>
+<li>在resources目录中定义一个属性配置文件，<code>xxx.properties</code>，例如，<code>jdbc.properties</code>。在属性配置文件中，定义数据，格式是<code>key=value</code>，key一般使用<code>.</code>做多级目录的</li>
+<li>在mybatis的主配置文件，使用<code>&lt;property&gt;</code>指定文件的位置，在需要使用值的地方，<code>$&#123;key&#125;</code></li>
+</ol>
+</li>
+<li><p>mapper文件的位置</p>
+<pre><code class="hljs xml"><span class="hljs-comment">&lt;!--第二种方式：使用包名</span>
+<span class="hljs-comment">            name：xml文件（mapper文件）所在的包名，这个包中所有xml文件一次都能加载给mybatis</span>
+<span class="hljs-comment">            使用package的要求：</span>
+<span class="hljs-comment">                1. mapper文件名称需要和接口名称一样，区分大小写也一样</span>
+<span class="hljs-comment">                2. mapper文件和dao接口需要再同一目录</span>
+<span class="hljs-comment">        --&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">package</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;com.bjpowernode.dao&quot;</span>/&gt;</span></code></pre>
+</li>
+</ol>
+</li>
+<li><p><code>PageHelper</code>：分页</p>
+<ul>
+<li><p>功能：实现多种数据库的分页，mysql就是代替limit语句的</p>
+</li>
+<li><p>使用步骤：</p>
+<ol>
+<li><p>加入maven依赖</p>
+<pre><code class="hljs xml"><span class="hljs-comment">&lt;!--PageHelper依赖--&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span>
-  <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>junit<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span>
-  <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>junit<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span>
-  <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>$&#123;junit.version&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span>
-  <span class="hljs-tag">&lt;<span class="hljs-name">scope</span>&gt;</span>test<span class="hljs-tag">&lt;/<span class="hljs-name">scope</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>com.github.pagehelper<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>pagehelper<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>5.1.10<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span></code></pre>
 </li>
-<li><p>resource资源插件</p>
-<pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">build</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">resources</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-name">resource</span>&gt;</span>
-            <span class="hljs-tag">&lt;<span class="hljs-name">directory</span>&gt;</span>src/main/java<span class="hljs-tag">&lt;/<span class="hljs-name">directory</span>&gt;</span><span class="hljs-comment">&lt;!-- 所在的目录 所在的目录 所在的目录--&gt;</span>
-            <span class="hljs-tag">&lt;<span class="hljs-name">includes</span>&gt;</span><span class="hljs-comment">&lt;!-- 包括目录下的 包括目录下的 包括目录下的 .properties,.xml 文件都会扫描到 文件都会扫描到 文件都会扫描到 文件都会扫描到 --&gt;</span>
-                <span class="hljs-tag">&lt;<span class="hljs-name">include</span>&gt;</span>**/*.properties<span class="hljs-tag">&lt;/<span class="hljs-name">include</span>&gt;</span>
-                <span class="hljs-tag">&lt;<span class="hljs-name">include</span>&gt;</span>**/*.xml<span class="hljs-tag">&lt;/<span class="hljs-name">include</span>&gt;</span>
-            <span class="hljs-tag">&lt;/<span class="hljs-name">includes</span>&gt;</span>
-            <span class="hljs-comment">&lt;!--filtering选项 false不启用过滤器， 不启用过滤器， 不启用过滤器， 不启用过滤器， *.property已经起到过滤的作用了 已经起到过滤的作用了 已经起到过滤的作用了 已经起到过滤的作用了 已经起到过滤的作用了--&gt;</span>
-            <span class="hljs-tag">&lt;<span class="hljs-name">filtering</span>&gt;</span>false<span class="hljs-tag">&lt;/<span class="hljs-name">filtering</span>&gt;</span>
-        <span class="hljs-tag">&lt;/<span class="hljs-name">resource</span>&gt;</span>
-    <span class="hljs-tag">&lt;/<span class="hljs-name">resources</span>&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-name">build</span>&gt;</span></code></pre>
-<ol>
-<li>默认没有使用resources的时候，maven执行编译代码时，会把<code>src/main/resources目录</code>中的文件拷贝到<code>target/classes目录</code>中。对于<code>src/main/java目录</code>下的非java文件不处理，不拷贝到<code>target/classes目录</code>中</li>
-<li>我们的程序有需要把一些文件放置<code>src/main/java目录</code>中，当我在执行java程序时，需要用到<code>scr/main/java目录</code>中的文件。需要告诉maven在<code>mvn compile</code>编译<code>src/main/java目录</code>下的程序时，需要把文件一同拷贝到<code>target/classes目录</code>中。此时就需要在<code>&lt;build&gt;</code>中加入<code>&lt;resources&gt;</code></li>
-</ol>
+<li><p>在mybatis主配置文件，加入plugin</p>
+<pre><code class="hljs xml"><span class="hljs-comment">&lt;!--配置插件--&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">plugins</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">plugin</span> <span class="hljs-attr">interceptor</span>=<span class="hljs-string">&quot;com.github.pagehelper.PageInterceptor&quot;</span> /&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">plugins</span>&gt;</span></code></pre>
+</li>
+<li><p>在查询方式之前，加入PageHelper方法调。</p>
+<pre><code class="hljs java"><span class="hljs-comment">// 加入PageHelper的方法，分页</span>
+<span class="hljs-comment">// pageNum：第几页，从1开始</span>
+<span class="hljs-comment">// pageSize：一页中有多少行数据</span>
+PageHelper.startPage(<span class="hljs-number">1</span>, <span class="hljs-number">3</span>);</code></pre>
 </li>
 </ol>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
 
             </div>
             <hr>
@@ -351,7 +402,9 @@
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/Maven/">Maven</a>
+                      <a class="hover-with-bg" href="/tags/%E6%A1%86%E6%9E%B6/">框架</a>
+                    
+                      <a class="hover-with-bg" href="/tags/MyBatis/">MyBatis</a>
                     
                   </div>
                 
@@ -364,18 +417,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2021/04/21/JDK%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">JDK动态代理</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2021/03/30/jQuery%E5%B0%8F%E7%BB%93/">
-                        <span class="hidden-mobile">jQuery小结</span>
+                      <a href="/2021/04/21/JDK%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86/">
+                        <span class="hidden-mobile">JDK动态代理</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -540,7 +587,7 @@
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "Maven小结&nbsp;",
+        "MyBatis小结&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,
