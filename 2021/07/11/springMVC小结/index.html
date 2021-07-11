@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="Yeefine">
   <meta name="keywords" content="">
-  <title>使用SSM框架实现CRM项目 - Yeefine&#39;s Blog</title>
+  <title>springMVC小结 - Yeefine&#39;s Blog</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 
@@ -160,7 +160,7 @@
               
   <div class="mt-3 post-meta">
     <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-    <time datetime="2021-07-11 21:19" pubdate>
+    <time datetime="2021-07-11 21:48" pubdate>
       2021年7月11日 晚上
     </time>
   </div>
@@ -171,7 +171,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      579 字
+      1.1k 字
     </span>
   
 
@@ -181,7 +181,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      6
+      13
        分钟
     </span>
   
@@ -211,54 +211,143 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto" id="post">
             <!-- SEO header -->
-            <h1 style="display: none">使用SSM框架实现CRM项目</h1>
+            <h1 style="display: none">springMVC小结</h1>
             
             <div class="markdown-body" id="post-body">
-              <h3 id="客户关系管理系统（CRM）"><a href="#客户关系管理系统（CRM）" class="headerlink" title="客户关系管理系统（CRM）"></a>客户关系管理系统（CRM）</h3><p>具体实现代码，<a target="_blank" rel="noopener" href="https://github.com/Yeefine/CRM">参考于此</a></p>
-<h4 id="系统开发环境以及版本"><a href="#系统开发环境以及版本" class="headerlink" title="系统开发环境以及版本"></a>系统开发环境以及版本</h4><ul>
-<li>操作系统：Windows_10</li>
-<li>集成开发工具：IntelliJ IDEA 2020.2.1</li>
-<li>编译环境：JDK_1.8</li>
-<li>Web服务器：Tomcat_9.0</li>
-<li>数据库：MySQL_5.5.40</li>
-</ul>
-<h4 id="系统框架"><a href="#系统框架" class="headerlink" title="系统框架"></a>系统框架</h4><ul>
-<li>spring框架</li>
-<li>springmvc框架</li>
-<li>mybatis框架</li>
-<li>maven框架</li>
-</ul>
-<h4 id="系统关键性技术"><a href="#系统关键性技术" class="headerlink" title="系统关键性技术"></a>系统关键性技术</h4><ul>
-<li>Spring+Springmvc+Mybatis三大框架</li>
-<li>Ajax技术</li>
-<li>条件查询结合分页查询</li>
-<li>线索转换</li>
-<li>md5加密加盐</li>
-</ul>
-<h4 id="问题记录"><a href="#问题记录" class="headerlink" title="问题记录"></a>问题记录</h4><ol>
-<li>在创建maven项目后，需要替换原始的web.xml</li>
-<li>在写springmvc的配置文件dispatcherServlet.xml时，注解驱动注意要选择mvc结尾的</li>
-<li>在spring配置文件中创建SqlSessionFactory时，configLocation属性的路径指向要用value（<strong>特殊</strong>）。一般根据name的返回类型判断，String则用value。</li>
-<li>在js中使用el表达式，el表达式一定要套用在字符串中，即加双引号。</li>
-<li>对于动态元素所触发的方法，参数必须套用在字符串当中。</li>
-<li>当<code>key</code>的值是一个可变的变量时，我们不能以<code>json.key</code>的形式取得<code>value</code>，应使用<code>json[key]</code>的取值方式。</li>
-<li>form表单的<code>action</code>以及<code>window.location.href</code>中的路径都不用加<code>/</code>；<code>RequestMapping</code>注解的value要加<code>/</code>；<code>ModelAndView</code>进行重定向或者转发时，在<code>forward:</code>或<code>redirect:</code>后需要加<code>/</code>。</li>
-<li>使用bootstrap的日历和分页组件时，对应的中文字符乱码。日历组件重新创建文件，复制并保存，替换原文件，注意编码格式为utf-8；分页组件目前尚未解决。</li>
-<li>ssm框架中，使用listener加载数据字典时，需注意，ssm中使用spring注解的方式创建对象，监听器在web.xml中最先被执行，因此在监听器方法执行时，无法进行bean的自动注入，使用<code>WebApplication.getBean(xxx.class)</code>来创建对应的对象。</li>
-<li>在进行关联市场活动的操作中，报空指针异常。ajax请求的data格式不是json时，而是一个拼接的字符串，此时controller中对多个id相同的参数(<code>.../xxx.do?id=xxx&amp;id=xxx&amp;id=xxx</code>)的接受，需要使用<code>request.getParameterValues(&quot;id&quot;)</code>来获取数组对象，而不能直接在参数列表加入数组对象。</li>
+              <h3 id="SpringMVC"><a href="#SpringMVC" class="headerlink" title="SpringMVC"></a>SpringMVC</h3><h4 id="一、概述"><a href="#一、概述" class="headerlink" title="一、概述"></a>一、概述</h4><ul>
+<li>SpringMVC做web开发的框架，实际是spring框架中的一个模块</li>
+<li>SpringMVC的使用就是基于spring的，容器的概念，SpringMVC会创建容器，<code>WebApplicationContext</code>。SpringMVC作为容器是创建和管理控制器对象的，使用<code>@Controller</code>创建控制器对象</li>
+<li>三层和框架的对应<ol>
+<li>SpringMVC：界面层，接受用户请求，显示处理结果</li>
+<li>Spring：业务层，处理业务逻辑的，spring创建Service，Dao，工具类等对象</li>
+<li>MyBatis：持久层，访问数据库的，对数据增删改查</li>
 </ol>
-<h4 id="部分页面"><a href="#部分页面" class="headerlink" title="部分页面"></a>部分页面</h4><ul>
-<li><p>登录页</p>
-<p><img src="https://raw.githubusercontent.com/Yeefine/picBed/master/20210710213407.png" srcset="/img/loading.gif" alt=""></p>
 </li>
-<li><p>市场活动</p>
-<p><img src="https://raw.githubusercontent.com/Yeefine/picBed/master/20210710213627.png" srcset="/img/loading.gif" alt=""></p>
+<li>SpringMVC底层访问依然是<code>Servlet-DispatcherServlet(中央调度器)</code><ol>
+<li>创建<code>WebApplicationContext</code>对象，读取配置文件，进而创建控制器对象</li>
+<li>它是一个Servlet，要接受用户的请求，显示处理结果</li>
+</ol>
 </li>
-<li><p>交易详细信息页</p>
-<p><img src="https://raw.githubusercontent.com/Yeefine/picBed/master/20210710220849.jpg" srcset="/img/loading.gif" alt=""></p>
+</ul>
+<h4 id="二、SpringMVC处理web请求"><a href="#二、SpringMVC处理web请求" class="headerlink" title="二、SpringMVC处理web请求"></a>二、SpringMVC处理web请求</h4><ul>
+<li><p>注解</p>
+<ol>
+<li><code>@Controller</code>：创建控制器类的对象，接受请求，处理请求</li>
+<li><code>@RequestMapping</code>：请求映射，把请求绑定到一个方法，让这个方法处理请求<ol>
+<li><code>value</code>：请求的uri地址，唯一值</li>
+<li><code>method</code>：请求的方式，使用<code>RequestMethod</code>类的枚举值，例如，get请求，<code>RequestMethod.GET</code></li>
+</ol>
 </li>
-<li><p>交易统计图表页</p>
-<p><img src="https://raw.githubusercontent.com/Yeefine/picBed/master/20210710214006.png" srcset="/img/loading.gif" alt=""></p>
+</ol>
+</li>
+<li><p>接收用户提交的参数</p>
+<ol>
+<li><p><code>HttpServletRequest</code>，<code>HttpServletResponse</code>，<code>HttpSession</code>可以直接出现在处理器方法的参数位置</p>
+</li>
+<li><p>逐个接受参数，处理器方法的形参名和请求中参数名一样。按名称对应赋值</p>
+</li>
+<li><p>解决请求中post方式有中文乱码，使用<strong>过滤器</strong>解决问题。<code>CharacterEncodingFilter</code></p>
+<pre><code class="hljs xml"><span class="hljs-comment">&lt;!--注册声明过滤器，解决post请求乱码的问题--&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">filter</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">filter-name</span>&gt;</span>characterEncodingFilter<span class="hljs-tag">&lt;/<span class="hljs-name">filter-name</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">filter-class</span>&gt;</span>org.springframework.web.filter.CharacterEncodingFilter<span class="hljs-tag">&lt;/<span class="hljs-name">filter-class</span>&gt;</span>
+    <span class="hljs-comment">&lt;!--设置项目中使用的字符编码--&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">init-param</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">param-name</span>&gt;</span>encoding<span class="hljs-tag">&lt;/<span class="hljs-name">param-name</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">param-value</span>&gt;</span>utf-8<span class="hljs-tag">&lt;/<span class="hljs-name">param-value</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">init-param</span>&gt;</span>
+    <span class="hljs-comment">&lt;!--强制请求对象（HttpServletRequest）使用encoding编码的值--&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">init-param</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">param-name</span>&gt;</span>forceRequestEncoding<span class="hljs-tag">&lt;/<span class="hljs-name">param-name</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">param-value</span>&gt;</span>true<span class="hljs-tag">&lt;/<span class="hljs-name">param-value</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">init-param</span>&gt;</span>
+    <span class="hljs-comment">&lt;!--强制应答对象（HttpServletResponse）使用encoding编码的值--&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">init-param</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">param-name</span>&gt;</span>forceResponseEncoding<span class="hljs-tag">&lt;/<span class="hljs-name">param-name</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">param-value</span>&gt;</span>true<span class="hljs-tag">&lt;/<span class="hljs-name">param-value</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">init-param</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">filter</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name">filter-mapping</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">filter-name</span>&gt;</span>characterEncodingFilter<span class="hljs-tag">&lt;/<span class="hljs-name">filter-name</span>&gt;</span>
+    <span class="hljs-comment">&lt;!--</span>
+<span class="hljs-comment">		/*：表示强制所有的请求先通过过滤器处理</span>
+<span class="hljs-comment">	--&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">url-pattern</span>&gt;</span>/*<span class="hljs-tag">&lt;/<span class="hljs-name">url-pattern</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">filter-mapping</span>&gt;</span></code></pre>
+</li>
+</ol>
+</li>
+</ul>
+<ol>
+<li>逐个接收中，请求中参数名和形参名不一样，使用<code>@RequestParam</code>解决问题<ol>
+<li>使用java对象接收请求的参数，要求请求中参数名和属性名一样</li>
+<li>springmvc处理器方法的形参还可以Map，List等集合类型，数组都可以</li>
+</ol>
+</li>
+</ol>
+<ul>
+<li><p>处理器方法的返回值：表示请求的处理结果</p>
+<ol>
+<li><p><code>ModelAndView</code>：表示数据和视图，对视图执行forward</p>
+</li>
+<li><p><code>String</code>：表示视图的，可以逻辑名称，完整视图路径，对视图执行forward</p>
+</li>
+<li><p><code>void</code>：返回值本身不能表示数据和视图，可以响应ajax请求</p>
+</li>
+<li><p><code>对象Object</code>：表示数据的，响应ajax请求</p>
+<p>springmvc处理器方法返回对象，转为json响应ajax步骤</p>
+<ol>
+<li>加入处理java到json转换的工具库：<code>jackson</code></li>
+<li>在springmvc配置文件加入注解驱动<code>&lt;mvc:annotation-driven&gt;</code></li>
+<li>在处理器方法的上面加入<code>@ResponseBody</code></li>
+</ol>
+</li>
+</ol>
+</li>
+<li><p><code>url-pattern</code></p>
+<ul>
+<li>设置中央调度器的url-pattern是<code>/</code>：导致静态资源访问失败都是404，动态资源可以正常访问</li>
+<li><p>第一种解决静态资源访问的方案：</p>
+<ul>
+<li>在springmvc的配置文件中加入<code>&lt;mvc:default-servlet-handler&gt;</code>，<code>&lt;mvc:annotation-driven&gt;</code></li>
+<li>原理：给程序内存增加一个处理器对象，<code>DefaultHttpRequestHandler</code>，让这个对象处理静态资源的访问。</li>
+</ul>
+</li>
+<li><p>第二种处理静态资源：使用的框架中<code>&lt;mvc:resources&gt;</code>标签，由框架自己处理静态资源的访问</p>
+</li>
+</ul>
+</li>
+<li><p>ssm整合开发</p>
+<ul>
+<li>ssm整合有两个容器<ol>
+<li>springmvc的容器：管理controller，视图等对象</li>
+<li>spring的容器：service，dao等对象</li>
+</ol>
+</li>
+<li>创建容器的方式<ol>
+<li>创建springmvc的容器对象：使用的中央调度器<code>DispatcherServlet</code></li>
+<li>创建spring容器对象，使用监听器<code>ContextLoaderListener</code></li>
+</ol>
+</li>
+<li>配置文件<ol>
+<li>springmvc的配置文件</li>
+<li>spring配置文件</li>
+<li>mybatis主配置文件</li>
+<li>数据库的属性配置文件</li>
+</ol>
+</li>
+</ul>
+</li>
+<li><p>核心技术</p>
+<ul>
+<li>转发和重定向<ul>
+<li>转发：<code>forward</code></li>
+<li>重定向：<code>redirect</code></li>
+<li>特点：都不和是解析器一同工作，就当项目中没有视图解析器</li>
+</ul>
+</li>
+</ul>
 </li>
 </ul>
 
@@ -270,7 +359,7 @@
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/categories/%E9%A1%B9%E7%9B%AE/">项目</a>
+                      <a class="hover-with-bg" href="/categories/%E6%80%BB%E7%BB%93/">总结</a>
                     
                   </div>
                 
@@ -278,9 +367,7 @@
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/Java/">Java</a>
-                    
-                      <a class="hover-with-bg" href="/tags/SSM%E6%A1%86%E6%9E%B6/">SSM框架</a>
+                      <a class="hover-with-bg" href="/tags/springMVC%E6%A1%86%E6%9E%B6/">springMVC框架</a>
                     
                   </div>
                 
@@ -293,18 +380,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2021/07/11/springMVC%E5%B0%8F%E7%BB%93/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">springMVC小结</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2021/04/30/spring%E5%B0%8F%E7%BB%93/">
-                        <span class="hidden-mobile">spring小结</span>
+                      <a href="/2021/07/11/%E4%BD%BF%E7%94%A8SSM%E6%A1%86%E6%9E%B6%E5%AE%9E%E7%8E%B0CRM%E9%A1%B9%E7%9B%AE/">
+                        <span class="hidden-mobile">使用SSM框架实现CRM项目</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -469,7 +550,7 @@
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "使用SSM框架实现CRM项目&nbsp;",
+        "springMVC小结&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,
