@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>使用SSM框架实现CRM项目</title>
+    <link href="/2021/07/11/%E4%BD%BF%E7%94%A8SSM%E6%A1%86%E6%9E%B6%E5%AE%9E%E7%8E%B0CRM%E9%A1%B9%E7%9B%AE/"/>
+    <url>/2021/07/11/%E4%BD%BF%E7%94%A8SSM%E6%A1%86%E6%9E%B6%E5%AE%9E%E7%8E%B0CRM%E9%A1%B9%E7%9B%AE/</url>
+    
+    <content type="html"><![CDATA[<h3 id="客户关系管理系统（CRM）"><a href="#客户关系管理系统（CRM）" class="headerlink" title="客户关系管理系统（CRM）"></a>客户关系管理系统（CRM）</h3><p>具体实现代码，<a href="https://github.com/Yeefine/CRM">参考于此</a></p><h4 id="系统开发环境以及版本"><a href="#系统开发环境以及版本" class="headerlink" title="系统开发环境以及版本"></a>系统开发环境以及版本</h4><ul><li>操作系统：Windows_10</li><li>集成开发工具：IntelliJ IDEA 2020.2.1</li><li>编译环境：JDK_1.8</li><li>Web服务器：Tomcat_9.0</li><li>数据库：MySQL_5.5.40</li></ul><h4 id="系统框架"><a href="#系统框架" class="headerlink" title="系统框架"></a>系统框架</h4><ul><li>spring框架</li><li>springmvc框架</li><li>mybatis框架</li><li>maven框架</li></ul><h4 id="系统关键性技术"><a href="#系统关键性技术" class="headerlink" title="系统关键性技术"></a>系统关键性技术</h4><ul><li>Spring+Springmvc+Mybatis三大框架</li><li>Ajax技术</li><li>条件查询结合分页查询</li><li>线索转换</li><li>md5加密加盐</li></ul><h4 id="问题记录"><a href="#问题记录" class="headerlink" title="问题记录"></a>问题记录</h4><ol><li>在创建maven项目后，需要替换原始的web.xml</li><li>在写springmvc的配置文件dispatcherServlet.xml时，注解驱动注意要选择mvc结尾的</li><li>在spring配置文件中创建SqlSessionFactory时，configLocation属性的路径指向要用value（<strong>特殊</strong>）。一般根据name的返回类型判断，String则用value。</li><li>在js中使用el表达式，el表达式一定要套用在字符串中，即加双引号。</li><li>对于动态元素所触发的方法，参数必须套用在字符串当中。</li><li>当<code>key</code>的值是一个可变的变量时，我们不能以<code>json.key</code>的形式取得<code>value</code>，应使用<code>json[key]</code>的取值方式。</li><li>form表单的<code>action</code>以及<code>window.location.href</code>中的路径都不用加<code>/</code>；<code>RequestMapping</code>注解的value要加<code>/</code>；<code>ModelAndView</code>进行重定向或者转发时，在<code>forward:</code>或<code>redirect:</code>后需要加<code>/</code>。</li><li>使用bootstrap的日历和分页组件时，对应的中文字符乱码。日历组件重新创建文件，复制并保存，替换原文件，注意编码格式为utf-8；分页组件目前尚未解决。</li><li>ssm框架中，使用listener加载数据字典时，需注意，ssm中使用spring注解的方式创建对象，监听器在web.xml中最先被执行，因此在监听器方法执行时，无法进行bean的自动注入，使用<code>WebApplication.getBean(xxx.class)</code>来创建对应的对象。</li><li>在进行关联市场活动的操作中，报空指针异常。ajax请求的data格式不是json时，而是一个拼接的字符串，此时controller中对多个id相同的参数(<code>.../xxx.do?id=xxx&amp;id=xxx&amp;id=xxx</code>)的接受，需要使用<code>request.getParameterValues(&quot;id&quot;)</code>来获取数组对象，而不能直接在参数列表加入数组对象。</li></ol><h4 id="部分页面"><a href="#部分页面" class="headerlink" title="部分页面"></a>部分页面</h4><ul><li><p>登录页</p><p><img src="https://raw.githubusercontent.com/Yeefine/picBed/master/20210710213407.png" alt=""></p></li><li><p>市场活动</p><p><img src="https://raw.githubusercontent.com/Yeefine/picBed/master/20210710213627.png" alt=""></p></li><li><p>交易详细信息页</p><p><img src="https://raw.githubusercontent.com/Yeefine/picBed/master/20210710220849.jpg" alt=""></p></li><li><p>交易统计图表页</p><p><img src="https://raw.githubusercontent.com/Yeefine/picBed/master/20210710214006.png" alt=""></p></li></ul>]]></content>
+    
+    
+    <categories>
+      
+      <category>项目</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Java</tag>
+      
+      <tag>SSM框架</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>spring小结</title>
     <link href="/2021/04/30/spring%E5%B0%8F%E7%BB%93/"/>
     <url>/2021/04/30/spring%E5%B0%8F%E7%BB%93/</url>
@@ -429,7 +456,7 @@
     
     <categories>
       
-      <category>机器学习</category>
+      <category>项目</category>
       
     </categories>
     
@@ -437,6 +464,8 @@
     <tags>
       
       <tag>朴素贝叶斯</tag>
+      
+      <tag>机器学习</tag>
       
     </tags>
     
